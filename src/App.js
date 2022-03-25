@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useEffect, useState, useRef} from 'react'
+import Game from './components/Game'
+
+// const BASE_URL = 'http://localhost:4567/'
 
 function App() {
+  // const [grid, setGrid] = useState([])
+  // let gridNumber = useRef([])
+
+  // useEffect(()=> {
+  //   async function fetchData(){
+  //    await fetch(BASE_URL)
+  //     .then(response => {
+  //       console.log(response);
+  //       if (!response.ok) throw new Error(response.status);
+  //       return response.json()})
+  //     .then(data => { 
+  //       console.log('data:', data)
+  //       // setGrid(data)
+  //       let gridData = data.grid
+  //       gridNumber.current = gridData
+  //       console.log("gridNumber", gridNumber.current[0])
+  //     }).catch((error) => console.error("Error getting data:", error))
+  //   }
+  //   fetchData()
+  //   // setGrid(result.data)
+  // }, [])
+
+  // console.log('stateData', grid)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Game/>
     </div>
   );
 }
