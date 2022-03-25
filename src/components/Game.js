@@ -9,14 +9,14 @@ function Game() {
     const [message, setMessage] = useState('')
   useEffect(()=> {
     async function fetchData(){
-     await fetch(BASE_URL)
+     await fetch(BASE_URL+'welcome')
       .then(response => {
         console.log(response);
         if (!response.ok) throw new Error(response.status);
         return response.json()})
       .then(data => { 
-        console.log('Message data:', data)
-        setMessage(data.message)
+        let message = data.welcome.trim().replace(/-/g, "")
+        setMessage(message)
       }).catch((error) => console.error("Error getting data:", error))
     }
     fetchData()

@@ -15,7 +15,7 @@ function Board(){
         if (!response.ok) throw new Error(response.status);
         return response.json()})
       .then(data => { 
-        console.log('data:', data)
+        console.log('GRID data:', data)
         setGridData(data.grid)
       }).catch((error) => console.error("Error getting data:", error))
     }
