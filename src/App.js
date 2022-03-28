@@ -7,9 +7,7 @@ const BASE_URL = 'http://localhost:4567/'
 
 function App() {
 
-  const handleStart = async () => {
-    
-  }
+  
 
   const addPlayerOne = async (playerOne) =>{
     const res = await fetch(BASE_URL+`game-mode`, {
@@ -36,9 +34,8 @@ function App() {
         Let's play Tic Tac Toe!
         </h1>
       </header>
-      <button type="submit" id="start" className="start-btn" onClick={handleStart}>Start</button>
-      <GameMode addPlayerOne={addPlayerOne}/>
-      {/* <Game/> */}
+      <Game/>
+      {/* <GameMode addPlayerOne={addPlayerOne}/> */}
     </div>
   );
 }
