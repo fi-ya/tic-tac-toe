@@ -6,30 +6,34 @@ const BASE_URL = 'http://localhost:4567/'
 
 function Game() {
 
-    const [message, setMessage] = useState('')
-  useEffect(()=> {
-    async function fetchData(){
-     await fetch(BASE_URL+'welcome')
-      .then(response => {
-        console.log(response);
-        if (!response.ok) throw new Error(response.status);
-        return response.json()})
-      .then(data => { 
-        let message = data.welcome.trim().replace(/-/g, "")
-        setMessage(message)
-      }).catch((error) => console.error("Error getting data:", error))
-    }
-    fetchData()
-  }, [])
+  function handleClick(e){
+      e.preventDefault();
+    async function postData(){
+        await fetch(BASE_URL+'start-game', {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+            },
+        body:JSON.stringify(
+            {
+                // 
+            }
+        ),            
+        })
+         .then(response => {
+           console.log(response);
+           if (!response.ok) throw new Error(response.status);
+           return response.json()})
+         .then(data => { 
+           console.log('success',data)
+         }).catch((error) => console.error("Error getting data:", error))
+       }
+       postData()
+  }
 
   return (
       <>
-      <header className="App-header">    
-        <p>
-        {message}
-        </p>
-      </header>
-      <button className="start-btn">Start</button>
+      <p>Player X turn </p>
       <Board/>
       </>
   );

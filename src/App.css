@@ -36,10 +36,13 @@ body {
 }
 
 .start-btn{
-  margin-bottom: 1rem;
-  margin-right: 50%;
+  margin-top: 2rem;
+  
 }
-
+.game-mode-form{
+  display: flex;
+  gap: 2rem;
+}
 .board-container{
   display: flex;
   justify-content: center;
