@@ -8,7 +8,7 @@ function Game() {
 
     const [game, setNewGame] = useState(false)
     const [gridData, setGridData] = useState([])
-    const [currentPlayer, setCurrentPlayer] = useState('X')
+    const [currentPlayer, setCurrentPlayer] = useState('')
     
     useEffect(()=> {
         fetchGridData()
@@ -35,6 +35,7 @@ function Game() {
          .then(data => { 
            console.log('START GAME:',data)
            setNewGame(true)
+           setCurrentPlayer(data.current_player)
          }).catch((error) => console.error("Error getting data:", error))
     }
  
