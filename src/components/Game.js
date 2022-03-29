@@ -39,8 +39,8 @@ function Game() {
     }
  
     const addPlayerMarker = async(playerMove) => {
-        const res = await fetch(BASE_URL+`/grid/:#{playerMove}`, {
-          method: 'POST',
+        const res = await fetch(BASE_URL+`/start-game/grid`, {
+          method: 'PUT',
             headers: {
               'Content-type': 'application/json',
               'Access-Control-Allow-Origin': 'http://localhost:4567'
@@ -54,11 +54,10 @@ function Game() {
           console.log("DATA player move:", data)
           setCurrentPlayer(data.current_player)
           setGridData(data.grid)
-         
         }).catch((error) => console.error("Error getting data:", error))
       }
 
-    console.log('stateData', gridData)
+    console.log('gridData', gridData)
     console.log('game', game)
 
   return (
