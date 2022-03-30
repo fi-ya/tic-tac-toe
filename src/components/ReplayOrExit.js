@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ReplayOrQuit = () => {
+const ReplayOrExit = () => {
   return (
     <div className='flex-gap'>
       <button className='btn'>Replay</button>
@@ -9,4 +9,4 @@ const ReplayOrQuit = () => {
   )
 }
 
-export default ReplayOrQuit
+export default ReplayOrExit
