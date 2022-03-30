@@ -3,13 +3,14 @@ import React, {useEffect, useState} from 'react'
 
 const BASE_URL = 'http://localhost:4567'
 
-function Board({gridData, currentPlayer, addPlayerMarker}){
+function Board({gridData, currentPlayerMarker, addPlayerMarker}){
     const [grid, updateGrid] = useState('')
-
+    
+  console.log("GRID DATA:", gridData)
     const setPlayerMarker = (e) => {
         console.log(e)
         let playerMove = e.target.innerHTML
-        addPlayerMarker(currentPlayer, playerMove)
+        addPlayerMarker(gridData, currentPlayerMarker, playerMove)
     }
 
     return(
