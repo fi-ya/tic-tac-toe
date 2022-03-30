@@ -22,6 +22,9 @@ body {
   font-size: calc(10px + 2vmin);
   color: rgb(33, 49, 141);
 }
+h2{
+  margin: 0.3rem;
+}
 
 .App-link {
   color: #61dafb;
@@ -36,8 +39,11 @@ body {
 }
 
 .start-btn{
-  margin-top: 2rem;
-  
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 0.2rem;
+  font-weight: bold;
 }
 .game-mode-form{
   display: flex;
