@@ -16,7 +16,7 @@ const GameMode = ({addPlayerOne}) => {
   return (
     <div>
         <h1>Select a game</h1>
-        {/* <form onSubmit={handleSubmit} className='game-mode-form'>
+        {/* <form onSubmit={handleSubmit} className='flex-gap'>
         <button type='submit' 
         onClick={(e)=>setPlayerOne(e.target.value)} 
         value='1'>Human vs Human</button>

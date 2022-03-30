@@ -38,16 +38,16 @@ h2{
   gap: 2rem;
 }
 
-.start-btn{
-  margin-bottom: 2rem;
+.btn{
   padding: 1rem 2rem;
   font-size: 1.2rem;
   border-radius: 0.2rem;
   font-weight: bold;
 }
-.game-mode-form{
+.flex-gap{
   display: flex;
   gap: 2rem;
+  margin: 1rem 1rem;
 }
 .board-container{
   display: flex;
@@ -58,6 +58,7 @@ h2{
 .grid-container {
   display:grid;
   grid-template-columns: auto auto auto;
+  margin-top: 1rem;
 }
 
 .grid-item{

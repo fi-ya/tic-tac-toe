@@ -1,6 +1,7 @@
 import '../App.css';
 import React, {useEffect, useState, useRef} from 'react'
 import Board from './Board'
+import ReplayOrQuit from './ReplayOrQuit';
 
 const BASE_URL = 'http://localhost:4567'
 
@@ -86,11 +87,13 @@ function Game() {
             gameStatus == "Tie" ? (
                 <>
                 <h2>Game over!! It's a tie!!!</h2>
+                <ReplayOrQuit/>
                 </>
                 ) :
                 (
                     <>
                     <h2>Congratulations ??? won!!!</h2>
+                    <ReplayOrQuit/>
                     </>
                     )
                 }
@@ -98,7 +101,7 @@ function Game() {
         </>)
         :
         (<>
-        <button type="submit" id="start" className="start-btn" onClick={startGame}>Start</button>
+        <button type="submit" id="start" className="btn" onClick={startGame}>Start</button>
         <Board gridData={gridData}/>
         </>)
     }
