@@ -9,6 +9,7 @@ function Game() {
     const [game, setNewGame] = useState(false)
     const [gridData, setGridData] = useState([])
     const [currentPlayer, setCurrentPlayer] = useState('')
+    const [gameStatus, setGameStatus] = useState('Keep playing')
     
     useEffect(()=> {
         fetchGridData()
@@ -63,18 +64,36 @@ function Game() {
           console.log("DATA player move:", data)
           setCurrentPlayer(data.current_player)
           setGridData(data.grid)
+          setGameStatus(data.game_status)
         }).catch((error) => console.error("Error getting data:", error))
       }
 
-    console.log('gridData:', gridData)
-    console.log('game:', game)
-    console.log('currentPlayer:', currentPlayer)
+    console.log('END gridData:', gridData)
+    console.log('END game:', game)
+    console.log('END currentPlayer:', currentPlayer)
+    console.log('END gameStatus:', gameStatus)
 
   return (
     <>
     {game ? (<>
-        <h2>Player {currentPlayer} turn</h2>
-        <p>Click on the square you want to place your move</p>
+
+        {gameStatus == "Keep playing" ?(
+            <>
+            <h2>Player {currentPlayer} turn</h2>
+            <p>Click on the square you want to place your move</p>
+            </>
+            ) : 
+            gameStatus == "Tie" ? (
+                <>
+                <h2>Game over!! It's a tie!!!</h2>
+                </>
+                ) :
+                (
+                    <>
+                    <h2>Congratulations ??? won!!!</h2>
+                    </>
+                    )
+                }
         <Board gridData={gridData} currentPlayer={currentPlayer} addPlayerMarker={addPlayerMarker}/>
         </>)
         :
