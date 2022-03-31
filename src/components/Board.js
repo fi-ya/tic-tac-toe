@@ -1,17 +1,14 @@
 import '../App.css';
 import React from 'react'
 
-function Board({gridData, currentPlayerMarker, addPlayerMarker}){
-    
-  console.log("GRID DATA:", gridData)
+function Board({ gridData, currentPlayerMarker, addPlayerMarker }) {
 
-    const setPlayerMarker = (e) => {
-        console.log(e)
-        let playerMove = e.target.innerHTML
-        addPlayerMarker(gridData, currentPlayerMarker, playerMove)
-    }
+  const setPlayerMarker = (e) => {
+    let playerMove = e.target.innerHTML
+    addPlayerMarker(gridData, currentPlayerMarker, playerMove)
+  }
 
-    return (
+  return (
     <section className="board-container">
       <div className="grid-container">
         <button className="grid-item" onClick={setPlayerMarker}>{gridData[0]}</button>
@@ -25,7 +22,7 @@ function Board({gridData, currentPlayerMarker, addPlayerMarker}){
         <button className="grid-item" onClick={setPlayerMarker}>{gridData[8]}</button>
       </div>
     </section>
-    )
+  )
 }
 
 export default Board;
