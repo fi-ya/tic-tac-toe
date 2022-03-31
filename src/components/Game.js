@@ -13,26 +13,8 @@ function Game() {
     const [currentPlayerMarker, setCurrentPlayerMarker] = useState('')
     const [gameStatus, setGameStatus] = useState('Keep playing')
     const [winner, setWinner] = useState('')
-    // useEffect(()=> {
-    //     fetchGridData()
-    // }, [])
-    
-    // const fetchGridData = async () => {
-    //     await fetch(BASE_URL, {
-    //         headers: {
-    //             'Access-Control-Allow-Origin': 'http://localhost:4567'
-    //         }
-    //     })
-    //       .then(response => {
-    //         console.log(response);
-    //         if (!response.ok) throw new Error(response.status);
-    //         return response.json()})
-    //       .then(data => { 
-    //         console.log('GRID data:', data)
-    //         setGridData(data.grid)
-    //       }).catch((error) => console.error("Error getting data:", error))
-    // }
-    
+    const [exitGame, setExitGame] = useState(false)
+  
     const startGame = async ()=> {
         await fetch(BASE_URL+'/start-game', {
             headers: {
@@ -78,6 +60,31 @@ function Game() {
         .catch((error) => console.error("Error getting data:", error))
       }
 
+      const handleGameExit =  () => {
+        setExitGame(true)
+        // setNewGame(false)
+        // await fetch(BASE_URL+'/start-game', {
+        //     headers: {
+        //         'Access-Control-Allow-Origin': 'http://localhost:4567'
+        //     }
+        // })
+        //  .then(response => {
+        //    console.log("RESPONSE startGame:",response);
+        //    if (!response.ok) throw new Error(response.status);
+        //    return response.json()
+        // })
+        //  .then(data => { 
+        // console.log("GET DATA startGame:",data)
+        //    let gridArray = JSON.parse(data.new_grid)
+        //    setExitGame(true)
+        //    setNewGame(false)
+        //    setCurrentPlayer(data.reset_current_player)
+        //    setCurrentPlayerMarker(data.reset_current_player_marker)
+        //    setGridData(gridArray)
+        //  })
+        //  .catch((error) => console.error("Error getting data:", error))
+        }
+
     console.log('END gridData:', gridData)
     console.log('TYPEOF gridData:', typeof(gridData[0]))
     console.log('END game:', game)
@@ -87,34 +94,34 @@ function Game() {
 
   return (
     <>
-    {game ? (<>
-
-        {gameStatus == "Keep playing" ?(
-            <>
+    {game && gameStatus == "Keep playing" ? (
+        <>
             <h2>Player {currentPlayerMarker} turn</h2>
             <p>Click on the square you want to place your move</p>
+            <Board gridData={gridData} currentPlayerMarker={currentPlayerMarker} addPlayerMarker={addPlayerMarker}/>
+        </>
+        )
+        : game && gameStatus == "Tie" ? (
+            <>
+            <h2>Game over!! It's a tie!!!</h2>
+            <ReplayOrExit startGame={startGame} 
+            handleGameExit={handleGameExit} 
+            exitGame={exitGame}/>
             </>
-            ) : 
-            gameStatus == "Tie" ? (
+            )
+            : game && gameStatus == "Won" ?(
                 <>
-                <h2>Game over!! It's a tie!!!</h2>
-                <ReplayOrExit/>
+                <h2>Congratulations {winner} won!!!</h2>
+                <ReplayOrExit startGame={startGame} 
+                handleGameExit={handleGameExit} 
+                exitGame={exitGame} />
                 </>
-                ) :
-                (
-                    <>
-                    <h2>Congratulations {winner} won!!!</h2>
-                    <ReplayOrExit/>
-                    </>
-                    )
-                }
-        <Board gridData={gridData} currentPlayerMarker={currentPlayerMarker} addPlayerMarker={addPlayerMarker}/>
-        </>)
-        :
-        (<>
-        <button type="submit" id="start" className="btn" onClick={startGame}>Start</button>
-        {/* <Board gridData={gridData}/> */}
-        </>)
+                )
+            :(
+                <>
+                <button type="submit" id="start" className="btn" onClick={startGame}>Start</button>
+                {/* <Board gridData={gridData}/> */}
+                </>)
     }
     </>
 
