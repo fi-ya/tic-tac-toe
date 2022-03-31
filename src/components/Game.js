@@ -96,14 +96,14 @@ function Game() {
 
   return (
     <>
-    {game && gameStatus == "Keep playing" ? (
+    {game && gameStatus === "Keep playing" ? (
         <>
             <h2>Player {currentPlayerMarker} turn</h2>
             <p>Click on the square you want to place your move</p>
             <Board gridData={gridData} currentPlayerMarker={currentPlayerMarker} addPlayerMarker={addPlayerMarker}/>
         </>
         )
-        : game && gameStatus == "Tie" ? (
+        : game && gameStatus === "Tie" ? (
             <>
             <h2>Game over!! It's a tie!!!</h2>
             <ReplayOrExit 
@@ -112,7 +112,7 @@ function Game() {
             exitGame={exitGame}/>
             </>
         )
-        : game && gameStatus == "Won" ?(
+        : game && gameStatus === "Won" ?(
             <>
             <h2>Congratulations {winner} won!!!</h2>
             <ReplayOrExit 
