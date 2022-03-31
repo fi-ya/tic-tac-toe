@@ -1,19 +1,17 @@
 import '../App.css';
-import React, {useEffect, useState} from 'react'
-
-const BASE_URL = 'http://localhost:4567'
+import React from 'react'
 
 function Board({gridData, currentPlayerMarker, addPlayerMarker}){
-    const [grid, updateGrid] = useState('')
     
   console.log("GRID DATA:", gridData)
+
     const setPlayerMarker = (e) => {
         console.log(e)
         let playerMove = e.target.innerHTML
         addPlayerMarker(gridData, currentPlayerMarker, playerMove)
     }
 
-    return(
+    return (
     <section className="board-container">
       <div className="grid-container">
         <button className="grid-item" onClick={setPlayerMarker}>{gridData[0]}</button>

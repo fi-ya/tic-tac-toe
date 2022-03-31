@@ -1,5 +1,5 @@
 import '../App.css';
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useState} from 'react'
 import Board from './Board'
 import ReplayOrExit from './ReplayOrExit';
 
@@ -60,30 +60,32 @@ function Game() {
         .catch((error) => console.error("Error getting data:", error))
       }
 
-      const handleGameExit =  () => {
-        setExitGame(true)
-        // setNewGame(false)
-        // await fetch(BASE_URL+'/start-game', {
-        //     headers: {
-        //         'Access-Control-Allow-Origin': 'http://localhost:4567'
-        //     }
-        // })
-        //  .then(response => {
-        //    console.log("RESPONSE startGame:",response);
-        //    if (!response.ok) throw new Error(response.status);
-        //    return response.json()
-        // })
-        //  .then(data => { 
-        // console.log("GET DATA startGame:",data)
-        //    let gridArray = JSON.parse(data.new_grid)
-        //    setExitGame(true)
-        //    setNewGame(false)
-        //    setCurrentPlayer(data.reset_current_player)
-        //    setCurrentPlayerMarker(data.reset_current_player_marker)
-        //    setGridData(gridArray)
-        //  })
-        //  .catch((error) => console.error("Error getting data:", error))
-        }
+    const handleGameExit =  () => {
+    setExitGame(true)
+    }
+
+    const handleReplayGame =  async () => {
+        await fetch(BASE_URL+'/start-game', {
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:4567'
+            }
+        })
+            .then(response => {
+            console.log("RESPONSE startGame:",response);
+            if (!response.ok) throw new Error(response.status);
+            return response.json()
+        })
+            .then(data => { 
+        console.log("GET DATA startGame:",data)
+            let gridArray = JSON.parse(data.new_grid)
+            setNewGame(true)
+            setGameStatus("Keep playing")
+            setCurrentPlayer(data.reset_current_player)
+            setCurrentPlayerMarker(data.reset_current_player_marker)
+            setGridData(gridArray)
+            })
+            .catch((error) => console.error("Error getting data:", error))
+    }
 
     console.log('END gridData:', gridData)
     console.log('TYPEOF gridData:', typeof(gridData[0]))
@@ -104,24 +106,26 @@ function Game() {
         : game && gameStatus == "Tie" ? (
             <>
             <h2>Game over!! It's a tie!!!</h2>
-            <ReplayOrExit startGame={startGame} 
+            <ReplayOrExit 
+            handleReplayGame={handleReplayGame}
             handleGameExit={handleGameExit} 
             exitGame={exitGame}/>
             </>
+        )
+        : game && gameStatus == "Won" ?(
+            <>
+            <h2>Congratulations {winner} won!!!</h2>
+            <ReplayOrExit 
+            handleReplayGame={handleReplayGame}
+            startGame={startGame} 
+            handleGameExit={handleGameExit} 
+            exitGame={exitGame} />
+            </>
             )
-            : game && gameStatus == "Won" ?(
-                <>
-                <h2>Congratulations {winner} won!!!</h2>
-                <ReplayOrExit startGame={startGame} 
-                handleGameExit={handleGameExit} 
-                exitGame={exitGame} />
-                </>
-                )
-            :(
-                <>
-                <button type="submit" id="start" className="btn" onClick={startGame}>Start</button>
-                {/* <Board gridData={gridData}/> */}
-                </>)
+        :(
+            <>
+            <button type="submit" id="start" className="btn" onClick={startGame}>Start</button>
+            </>)
     }
     </>
 
