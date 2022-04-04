@@ -32,7 +32,7 @@ function Game() {
         setCurrentPlayerMarker(data.reset_current_player_marker)
         setGridData(gridArray)
       })
-      .catch((error) => console.error("Error getting data:", error))
+      .catch((error) => console.error("Error getting data for startGame:", error))
   }
 
   const addPlayerMarker = async (gridData, currentPlayerMarker, playerMove) => {
@@ -48,6 +48,7 @@ function Game() {
       return response.json()
     })
       .then(data => {
+        console.log('data for ',data)
         setInvalidMove(false)
         if (data.updated_grid === "Invalid move. Try again") {
           setInvalidMove(true)
@@ -56,10 +57,26 @@ function Game() {
           setGridData(updatedGridArray)
           setCurrentPlayerMarker(data.current_player_marker)
           setGameStatus(data.game_status)
-          setWinner(data.winner)
+          
+          if (data.game_status === "Won"){
+            fetchWinner(updatedGridArray)
+          }
         }
       })
-      .catch((error) => console.error("Error getting data:", error))
+      .catch((error) => console.error("Error getting data for addPlayerMarker:", error))
+  }
+
+  const fetchWinner = async(winning_grid) => {
+    await fetch(BASE_URL+ `/start-game/grid/${winning_grid}`, {
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:4567'
+      }
+    }).then(response =>{
+      if (!response.ok) throw new Error(response.status);
+        return response.json()
+    }).then(data =>{
+      setWinner(data.winner)
+    }).catch((error) => console.error('Error getting data for fetchWinner:', error))
   }
 
   const handleGameExit = () => {
@@ -74,7 +91,7 @@ function Game() {
     })
       .then(response => {
         if (!response.ok) throw new Error(response.status);
-        return response.json()
+          return response.json()
       })
       .then(data => {
         let gridArray = JSON.parse(data.new_grid)
