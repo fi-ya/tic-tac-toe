@@ -13,6 +13,7 @@ function Game() {
   const [gameStatus, setGameStatus] = useState('Keep playing')
   const [winner, setWinner] = useState('')
   const [exitGame, setExitGame] = useState(false)
+  const [invalidMove, setInvalidMove] = useState(false)
 
   const startGame = async () => {
     return await fetch(BASE_URL + '/start-game', {
@@ -47,12 +48,16 @@ function Game() {
       return response.json()
     })
       .then(data => {
-        let updatedGridArray = JSON.parse(data.updated_grid)
-
-        setCurrentPlayerMarker(data.current_player_marker)
-        setGridData(updatedGridArray)
-        setGameStatus(data.game_status)
-        setWinner(data.winner)
+        setInvalidMove(false)
+        if (data.updated_grid === "Invalid move. Try again") {
+          setInvalidMove(true)
+        } else {
+          let updatedGridArray = JSON.parse(data.updated_grid)
+          setGridData(updatedGridArray)
+          setCurrentPlayerMarker(data.current_player_marker)
+          setGameStatus(data.game_status)
+          setWinner(data.winner)
+        }
       })
       .catch((error) => console.error("Error getting data:", error))
   }
@@ -73,7 +78,6 @@ function Game() {
       })
       .then(data => {
         let gridArray = JSON.parse(data.new_grid)
-
         setNewGame(true)
         setGameStatus("Keep playing")
         setCurrentPlayerMarker(data.reset_current_player_marker)
@@ -93,6 +97,7 @@ function Game() {
               currentPlayerMarker={currentPlayerMarker} 
               addPlayerMarker={addPlayerMarker} />
           </section>
+          
         )
           : game && gameStatus === "Tie" ? (
               <section>
@@ -118,6 +123,12 @@ function Game() {
                     <button type="submit" id="start" className="btn" onClick={startGame}>Start</button>
                   </section>
                 )
+      }
+      { invalidMove? (
+          <div className="error-msg">
+            <h1 className="padding-sm">Invalid move. Try again!</h1>
+          </div>) 
+       : (null)
       }
     </main>
   );

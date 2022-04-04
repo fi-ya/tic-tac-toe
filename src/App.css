@@ -71,3 +71,12 @@ h2{
 button:hover {
   background-color: #61dafb;
 }
+
+.error-msg{
+  background-color: #D22B2B;
+  color: #fafafa;
+  margin: 1rem;
+}
+.padding-sm{
+  padding: 1rem 1rem;
+}
