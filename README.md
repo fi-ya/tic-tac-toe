@@ -1,11 +1,19 @@
-# Getting Started with Create React App
+# Tic Tac Toe React Front End (with Sinatra Back End)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+Clone repository 
+### `git clone git@github.com:fi-ya/tic-tac-toe.git`
 
+In the project directory, to install dependencies run:
+
+### `npm install`
+
+## Run project
+
+Use the following commands to run , test, build this project. 
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -15,7 +23,7 @@ The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
 ### `npm test`
-
+####  Note: There are currently NO tests for this project 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
@@ -29,6 +37,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## Other information 
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
