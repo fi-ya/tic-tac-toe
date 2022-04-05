@@ -3,14 +3,14 @@ import Game from './Game'
 
 const BASE_URL = 'http://localhost:4567'
 
-function GameMode({startGame}){
+function GameMode({startGame, setGameMode}){
 
   const handleGameModeChoice = (e) => {
-    console.log(e.target)
-    e.target.style.backgroundColor = "#61dafb"
+   
     let gameModeChoice = e.target.value
+    setGameMode(gameModeChoice)
     startGame(gameModeChoice)
-    e.target.style.backgroundColor = "none"
+
   }
 
   // const addGameMode = async (gameModeChoice) => {

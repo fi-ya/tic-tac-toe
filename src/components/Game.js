@@ -99,6 +99,7 @@ function Game() {
       })
       .then(data => {
         let gridArray = JSON.parse(data.new_grid)
+        // setGameMode(null)
         setNewGame(true)
         setGameStatus("Keep playing")
         setCurrentPlayerMarker(data.reset_current_player_marker)
@@ -109,17 +110,21 @@ function Game() {
 
   return (
     <main>
-      { game && gameStatus === "Keep playing" ? (
-          <section>
-            <h2>Player {currentPlayerMarker} turn</h2>
-            <p>Click on the square you want to place your move</p>
-            <Board 
-              gridData={gridData} 
-              currentPlayerMarker={currentPlayerMarker} 
-              addPlayerMarker={addPlayerMarker} />
-          </section>
-          
-        )
+      {gameMode === null ? ((
+                  <section>
+                     <GameMode startGame={startGame} setGameMode={setGameMode}/>
+                  </section>
+                )) : (
+          game && gameStatus === "Keep playing" ? (
+              <section>
+                <h2>Player {currentPlayerMarker} turn</h2>
+                <p>Click on the square you want to place your move</p>
+                <Board 
+                  gridData={gridData} 
+                  currentPlayerMarker={currentPlayerMarker} 
+                  addPlayerMarker={addPlayerMarker} />
+              </section>
+          )
           : game && gameStatus === "Tie" ? (
               <section>
                 <h2>Game over!! It's a tie!!!</h2>
@@ -141,16 +146,16 @@ function Game() {
                 )
               : (
                   <section>
-                     <GameMode startGame={startGame}/>
+                     <GameMode startGame={startGame} setGameMode={setGameMode}/>
                   </section>
                 )
-      }
+      )}
       { invalidMove? (
           <div className="error-msg">
             <h1 className="padding-sm">Invalid move. Try again!</h1>
           </div>) 
        : (null)
-      }
+      }         
     </main>
   );
 }
