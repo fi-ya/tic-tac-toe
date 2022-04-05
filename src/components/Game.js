@@ -2,6 +2,7 @@ import '../App.css';
 import React, { useState } from 'react'
 import Board from './Board'
 import ReplayOrExit from './ReplayOrExit';
+import GameMode from './GameMode';
 
 const BASE_URL = 'http://localhost:4567'
 
@@ -14,9 +15,10 @@ function Game() {
   const [winner, setWinner] = useState('')
   const [exitGame, setExitGame] = useState(false)
   const [invalidMove, setInvalidMove] = useState(false)
+  const [gameMode, setGameMode] = useState(null);
 
-  const startGame = async () => {
-    return await fetch(BASE_URL + '/start-game', {
+  const startGame = async (gameModeChoice) => {
+    return await fetch(BASE_URL + `/start-game/${gameModeChoice}`, {
       headers: {
         'Access-Control-Allow-Origin': 'http://localhost:4567'
       }
@@ -26,6 +28,7 @@ function Game() {
         return response.json()
       })
       .then(data => {
+        console.log('start game data:', data)
         let gridArray = JSON.parse(data.new_grid)
         
         setNewGame(true)
@@ -48,8 +51,9 @@ function Game() {
       return response.json()
     })
       .then(data => {
-        console.log('data for ',data)
+
         setInvalidMove(false)
+
         if (data.updated_grid === "Invalid move. Try again") {
           setInvalidMove(true)
         } else {
@@ -137,7 +141,7 @@ function Game() {
                 )
               : (
                   <section>
-                    <button type="submit" id="start" className="btn" onClick={startGame}>Start</button>
+                     <GameMode startGame={startGame}/>
                   </section>
                 )
       }
