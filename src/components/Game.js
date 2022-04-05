@@ -10,6 +10,7 @@ function Game() {
 
   const [game, setNewGame] = useState(false)
   const [gridData, setGridData] = useState([])
+  const [currentPlayer, setCurrentPlayer] = useState('')
   const [currentPlayerMarker, setCurrentPlayerMarker] = useState('')
   const [gameStatus, setGameStatus] = useState('Keep playing')
   const [winner, setWinner] = useState('')
@@ -30,7 +31,7 @@ function Game() {
       .then(data => {
         console.log('start game data:', data)
         let gridArray = JSON.parse(data.new_grid)
-        
+        setCurrentPlayer(data.reset_current_player1_name)
         setNewGame(true)
         setCurrentPlayerMarker(data.reset_current_player_marker)
         setGridData(gridArray)
@@ -51,7 +52,7 @@ function Game() {
       return response.json()
     })
       .then(data => {
-
+        
         setInvalidMove(false)
 
         if (data.updated_grid === "Invalid move. Try again") {
@@ -88,26 +89,12 @@ function Game() {
   }
 
   const handleReplayGame = async () => {
-    await fetch(BASE_URL + '/start-game', {
-      headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:4567'
-      }
-    })
-      .then(response => {
-        if (!response.ok) throw new Error(response.status);
-          return response.json()
-      })
-      .then(data => {
-        let gridArray = JSON.parse(data.new_grid)
-        setGameMode(null)
-        setNewGame(true)
-        setGameStatus("Keep playing")
-        setCurrentPlayerMarker(data.reset_current_player_marker)
-        setGridData(gridArray)
-      })
-      .catch((error) => console.error("Error getting data:", error))
+    setGameMode(null)
+    setNewGame(true)
+    setGameStatus("Keep playing")
   }
 
+  console.log('currentPlayer:', currentPlayer)
   return (
     <main>
       {gameMode === null ? ((

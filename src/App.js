@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react'
-import GameMode from './components/GameMode';
 import Game from './components/Game'
 
 function App() {

@@ -1,7 +1,4 @@
-import React, {useState} from 'react'
-import Game from './Game'
-
-const BASE_URL = 'http://localhost:4567'
+import React from 'react'
 
 function GameMode({startGame, setGameMode}){
 
@@ -12,21 +9,6 @@ function GameMode({startGame, setGameMode}){
     startGame(gameModeChoice)
 
   }
-
-  // const addGameMode = async (gameModeChoice) => {
-  //   await fetch(BASE_URL + `/start-game/${gameModeChoice}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Access-Control-Allow-Origin': 'http://localhost:4567'
-  //     }
-  //   }).then(response => {
-  //     if (!response.ok) throw new Error(response.status);
-  //       return response.json()
-  //   }).then(data => {
-  //     console.log('game mode data:', data)
-  //     // setGameMode()
-  //   }).catch((error) => console.error('Error getting data for addGameMode:', error))
-  // }
 
   return(
     <section>
