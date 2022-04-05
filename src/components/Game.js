@@ -99,7 +99,7 @@ function Game() {
       })
       .then(data => {
         let gridArray = JSON.parse(data.new_grid)
-        // setGameMode(null)
+        setGameMode(null)
         setNewGame(true)
         setGameStatus("Keep playing")
         setCurrentPlayerMarker(data.reset_current_player_marker)
