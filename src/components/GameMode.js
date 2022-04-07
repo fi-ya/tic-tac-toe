@@ -3,11 +3,9 @@ import React from 'react'
 function GameMode({startGame, setGameMode}){
 
   const handleGameModeChoice = (e) => {
-   
     let gameModeChoice = e.target.value
     setGameMode(gameModeChoice)
     startGame(gameModeChoice)
-
   }
 
   return(

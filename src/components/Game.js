@@ -52,7 +52,7 @@ function Game() {
       return response.json()
     })
       .then(data => {
-        
+
         setInvalidMove(false)
 
         if (data.updated_grid === "Invalid move. Try again") {
@@ -64,24 +64,11 @@ function Game() {
           setGameStatus(data.game_status)
           
           if (data.game_status === "Won"){
-            fetchWinner(updatedGridArray)
+            setWinner(data.winner)
           }
         }
       })
       .catch((error) => console.error("Error getting data for addPlayerMarker:", error))
-  }
-
-  const fetchWinner = async(winning_grid) => {
-    await fetch(BASE_URL+ `/start-game/grid/${winning_grid}`, {
-      headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:4567'
-      }
-    }).then(response =>{
-      if (!response.ok) throw new Error(response.status);
-        return response.json()
-    }).then(data =>{
-      setWinner(data.winner)
-    }).catch((error) => console.error('Error getting data for fetchWinner:', error))
   }
 
   const handleGameExit = () => {
