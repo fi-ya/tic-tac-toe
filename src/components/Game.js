@@ -4,6 +4,7 @@ import Board from './Board'
 import ReplayOrExit from './ReplayOrExit';
 import GameMode from './GameMode';
 import BASE_URL from '../config';
+import { fetchNewGame } from '../api';
 
 function Game() {
 
@@ -18,15 +19,8 @@ function Game() {
   const [gameMode, setGameMode] = useState(null);
 
   const startGame = async (gameModeChoice) => {
-    return await fetch(BASE_URL + `/start-game/${gameModeChoice}`, {
-      headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:4567'
-      }
-    })
-      .then(response => {
-        if (!response.ok) throw new Error(response.status);
-        return response.json()
-      })
+    const url = BASE_URL + `/start-game/${gameModeChoice}`
+    return await fetchNewGame(url)
       .then(data => {
         console.log('start game data:', data)
         let gridArray = JSON.parse(data.new_grid)
