@@ -4,7 +4,7 @@ import Board from './Board'
 import ReplayOrExit from './ReplayOrExit';
 import GameMode from './GameMode';
 import BASE_URL from '../config';
-import { fetchNewGame } from '../api';
+import { fetchNewGame, updateGameData } from '../api';
 
 function Game() {
 
@@ -33,17 +33,8 @@ function Game() {
   }
 
   const addPlayerMarker = async (gridData, currentPlayerMarker, playerMove) => {
-    return await fetch(BASE_URL + `/start-game/grid`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:4567'
-      },
-      body: JSON.stringify([gridData, currentPlayerMarker, playerMove]),
-    }).then(response => {
-      if (!response.ok) throw new Error(response.status);
-      return response.json()
-    })
+    const url = BASE_URL + `/start-game/grid`
+    return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then(data => {
 
         setInvalidMove(false)
