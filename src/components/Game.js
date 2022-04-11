@@ -65,7 +65,6 @@ function Game() {
     setGameStatus("Keep playing")
   }
 
-  console.log('currentPlayer:', currentPlayer)
   return (
     <main>
       {gameMode === null ? ((

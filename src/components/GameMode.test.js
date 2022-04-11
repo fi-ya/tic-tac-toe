@@ -10,16 +10,21 @@ import GameMode from './GameMode'
 // afterAll(cleanup);
 
 describe ('GameMode', () =>{
-  test('renders a heading ',() =>{
+  it('should render a heading ',() =>{
     render(<GameMode/>);
     const heading = screen.getByRole('heading', {  name: /select game mode/i})
     expect(heading).toBeInTheDocument();
   })
 
-  test('renders human vs human game mode button',async()=>{
+  it('should render human vs human game mode button',async()=>{
     render(<GameMode/>);
     const humanVsHumanBtn = screen.getByRole('button', {  name: /human vs human/i})
     expect(humanVsHumanBtn).toBeInTheDocument();
+    expect(humanVsHumanBtn).toHaveAttribute('type', 'submit')
+    expect(humanVsHumanBtn).toHaveClass('btn game_mode')
+    expect(humanVsHumanBtn).toHaveTextContent(/^Human vs Human$/)
+    expect(humanVsHumanBtn).toHaveValue('1')
+
     // fireEvent.click(humanVsHumanBtn);
     // const whoTurnHeading = await screen.getByRole('heading', {  name: /player x turn/i})
     // expect(whoTurnHeading).toBeInTheDocument();
@@ -27,9 +32,19 @@ describe ('GameMode', () =>{
     // await waitFor(() => expect(mockAPI).toHaveBeenCalledTimes(1))
   })
 
-  test('renders computer vs human game mode button',()=>{
+  it('should render computer vs human game mode button',()=>{
     render(<GameMode/>);
     const computerVsHumanBtn = screen.getByRole('button', {  name: /computer vs human/i})
-    expect(computerVsHumanBtn).toBeInTheDocument();
+    expect(computerVsHumanBtn).toBeInTheDocument()
+    expect(computerVsHumanBtn).toHaveAttribute('type','submit')
+    expect(computerVsHumanBtn).toHaveClass('btn game_mode')
+    expect(computerVsHumanBtn).toHaveTextContent(/^Computer vs Human$/)
+    expect(computerVsHumanBtn).toHaveValue('2')
+  })
+
+  it('should render two buttons', ()=>{
+    render(<GameMode/>)
+    const buttonElements = screen.getAllByRole('button')
+    expect(buttonElements.length).toBe(2);
   })
 })

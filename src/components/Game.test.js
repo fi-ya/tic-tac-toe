@@ -7,10 +7,12 @@ beforeAll(()=>{
 })
 
 describe ('Game', () =>{
-  xtest('renders a heading ',() =>{
-    
+  render(<Game/>);
+  xit('should render a paragraph containing instructions ',() =>{
+    // const gameInstruction = screen.getByRole("paragraph", { name: /click on the square you want to place your move/i})
+    // expect(gameInstruction).toBeInTheDocument()
    
   })
-
+  screen.getBy
  
 })
