@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import Board from './Board'
 import ReplayOrExit from './ReplayOrExit';
 import GameMode from './GameMode';
-
-const BASE_URL = 'http://localhost:4567'
+import BASE_URL from '../config';
 
 function Game() {
 
