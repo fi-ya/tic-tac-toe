@@ -4,11 +4,6 @@ import React from 'react'
 import Game from './Game'
 import GameMode from './GameMode'
 
-
-// beforeAll(()=>{
-//   render(<GameMode/>);
-// })
-
 const mockSetGameMode = jest.fn((mode)=>{
   return mode
 });
@@ -23,7 +18,7 @@ const mockStartGame = jest.fn((mode) => {
 
 describe ('Game', () =>{
   
-  it('should render a paragraph containing instructions ',() =>{
+  xit('should render a paragraph containing instructions ', async() =>{
     render(<GameMode setGameMode={mockSetGameMode} startGame={mockStartGame}/>);
     const humanVsHumanBtnElement = screen.getByRole('button', {  name: /human vs human/i});
     const gameMode = humanVsHumanBtnElement.value
@@ -31,10 +26,10 @@ describe ('Game', () =>{
     fireEvent.click(humanVsHumanBtnElement);
     mockSetGameMode(gameMode);
     mockStartGame(gameMode)
-    console.log('what is this oing', mockStartGame(gameMode))
 
-    // const gameInstruction = screen.getByRole("paragraph", { name: /click on the square you want to place your move/i})
-    // expect(gameInstruction).toBeInTheDocument()
+    const gameInstruction = await screen.getByRole("paragraph", { name: /click on the square you want to place your move/i})
+    screen.debug()
+    expect(gameInstruction).toBeInTheDocument()
    
   })
  

@@ -4,7 +4,7 @@ import Board from './Board'
 import ReplayOrExit from './ReplayOrExit';
 import GameMode from './GameMode';
 import BASE_URL from '../config';
-import { fetchNewGame, updateGameData } from '../api';
+import { fetchNewGame, updateGameData } from '../fetch';
 
 function Game() {
 
@@ -36,7 +36,7 @@ function Game() {
     const url = BASE_URL + `/start-game/grid`
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then(data => {
-        console.log(data, 'put data')
+        console.log(data, 'put')
         setInvalidMove(false)
 
         if (data.updated_grid === "Invalid move. Try again") {
