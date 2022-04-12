@@ -28,4 +28,14 @@ describe('Board', ()=>{
     expect(gridButtonElements[1].textContent).toBe('2')
     expect(gridButtonElements[2].textContent).toBe('3')
   })
+
+  xit('should on click update board with player marker', async()=>{
+ 
+    const playerMove = screen.getByRole('button', {  name: /1/i})
+   
+    fireEvent.click(playerMove)
+    console.log(fireEvent.click(playerMove), 'playerMove')
+    expect(mockAddPlayerMarker).toHaveBeenCalledTimes(1)
+  
+  })
 })

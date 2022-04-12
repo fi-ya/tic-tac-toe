@@ -32,5 +32,18 @@ describe ('Game', () =>{
     expect(gameInstruction).toBeInTheDocument()
    
   })
+
+  xit('should on click of human vs human game start game', async ()=>{
+    render(<GameMode
+            setGameMode={mockSetGameMode}
+            startGame={mockStartGame}/>)
+
+    const humanVsHumanBtnElement = screen.getByRole('button', {  name: /human vs human/i})
+    
+   const clickEvent =  fireEvent.click(humanVsHumanBtnElement)
+   console.log('click',clickEvent);
+   console.log('humanVsHumanBtnElement',humanVsHumanBtnElement.value);
+    // expect(humanVsHumanBtn).toBeInTheDocument();
+  })
  
 })
