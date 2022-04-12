@@ -19,6 +19,7 @@ function Game() {
   const [gameMode, setGameMode] = useState(null);
 
   const startGame = async (gameModeChoice) => {
+    setGameMode(gameModeChoice)
     const url = BASE_URL + `/start-game/${gameModeChoice}`
     return await fetchNewGame(url)
       .then(data => {
@@ -69,7 +70,7 @@ function Game() {
     <main>
       {gameMode === null ? ((
                   <section>
-                     <GameMode startGame={startGame} setGameMode={setGameMode}/>
+                     <GameMode startGame={startGame}/>
                   </section>
                 )) : (
           game && gameStatus === "Keep playing" ? (
@@ -103,7 +104,7 @@ function Game() {
                 )
               : (
                   <section>
-                     <GameMode startGame={startGame} setGameMode={setGameMode}/>
+                     <GameMode startGame={startGame}/>
                   </section>
                 )
       )}
