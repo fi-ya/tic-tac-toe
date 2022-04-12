@@ -1,13 +1,20 @@
-import {render, screen, fireEvent} from '@testing-library/react'
+import {cleanup, render, screen, fireEvent} from '@testing-library/react'
 import React from 'react'
 import GameMode from './GameMode'
+import Game from './Game'
 // import '@testing-library/jest-dom'
 
 // beforeAll(()=>{
-//   render(<GameMode/>);
+//   render(<Game/>);
 // })
 
 // afterAll(cleanup);
+
+const mockSetGameMode = jest.fn();
+const mockStartGame = jest.fn((value) => {
+  const mockFetchNewGame = jest.fn((value)=> {data});
+    return 
+});
 
 describe ('GameMode', () =>{
   it('should render a heading ',() =>{
@@ -44,7 +51,20 @@ describe ('GameMode', () =>{
 
   it('should render two buttons', ()=>{
     render(<GameMode/>)
-    const buttonElements = screen.getAllByRole('button')
-    expect(buttonElements.length).toBe(2);
+    const gameModeButtonElements = screen.getAllByRole('button');
+    expect(gameModeButtonElements.length).toBe(2);
+  })
+
+  it('should on click of human vs human game start game', async ()=>{
+    render(<GameMode
+            setGameMode={mockSetGameMode}
+            startGame={mockStartGame}/>)
+
+    const humanVsHumanBtnElement = screen.getByRole('button', {  name: /human vs human/i})
+    
+   const clickEvent =  fireEvent.click(humanVsHumanBtnElement)
+   console.log('click',clickEvent);
+   console.log('humanVsHumanBtnElement',humanVsHumanBtnElement.value);
+    // expect(humanVsHumanBtn).toBeInTheDocument();
   })
 })
