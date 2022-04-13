@@ -2,19 +2,17 @@ import {fireEvent, render, screen} from '@testing-library/react'
 import React from 'react'
 import GameMode from './GameMode'
 import Game from './Game'
-// import startGame from './Game'
-
-beforeEach(()=>{
-  render(<GameMode/>);
-})
+import userEvent from '@testing-library/user-event'
 
 describe ('GameMode', () =>{
   it('should render a heading ',() =>{
+    render(<GameMode />);
     const heading = screen.getByRole('heading', {  name: /select game mode/i})
     expect(heading).toBeInTheDocument();
   })
 
   it('should render human vs human game mode button',async()=>{
+    render(<GameMode />);
     const humanVsHumanBtn = screen.getByRole('button', {  name: /human vs human/i})
     expect(humanVsHumanBtn).toBeInTheDocument();
     expect(humanVsHumanBtn).toHaveClass('btn game_mode')
@@ -23,6 +21,7 @@ describe ('GameMode', () =>{
   })
 
   it('should render computer vs human game mode button',()=>{
+    render(<GameMode />);
     const computerVsHumanBtn = screen.getByRole('button', {  name: /computer vs human/i})
     expect(computerVsHumanBtn).toBeInTheDocument()
     expect(computerVsHumanBtn).toHaveClass('btn game_mode')
@@ -31,18 +30,48 @@ describe ('GameMode', () =>{
   })
 
   it('should render two buttons', ()=>{
+    render(<GameMode />);
     const gameModeButtonElements = screen.getAllByRole('button');
     expect(gameModeButtonElements.length).toBe(2);
   })
 
-  it('should call startGame function on click', ()=>{
-    expect.assertions(1);
+  it('should call startGame function on click(stub)', async ()=>{
+    expect.assertions(2);
+    let choice;
+    // stub/spy on startGame
+    const mockStartGameStub = jest.fn(choice);
+    
+    // const mockStartGameSpy = jest.spyOn(startGame, 'startGame')
+    render(<GameMode startGame={mockStartGameStub}/>);
+    
+    // grab button element
     const humanVsHumanBtn = screen.getByRole('button', {  name: /human vs human/i})
+   
+    // user click button 
+    userEvent.click(humanVsHumanBtn);
 
-    const mockStartGame = jest.fn((value));
+    // ask if called , called with value
+    expect(mockStartGameStub).toBeCalled();
+    expect(mockStartGameStub).toBeCalledWith(humanVsHumanBtn.value);
+    
+  })
 
-    fireEvent.click(humanVsHumanBtn)
 
+  xit('should call startGame function on click (spyOn)', async ()=>{
+    
+    // stub/spy on startGame
+    const mockStartGameSpy = jest.spyOn(startGame, 'startGame')
+    render(<GameMode startGame={mockStartGameStub}/>);
+    
+    // grab button element
+    const humanVsHumanBtn = screen.getByRole('button', {  name: /human vs human/i})
+   
+    // user click button 
+    userEvent.click(humanVsHumanBtn)
+
+    // ask if called , called with value
+    expect(mockStartGameSpy).toBeCalled();
+    expect.assertions(1);
   })
 })
 
