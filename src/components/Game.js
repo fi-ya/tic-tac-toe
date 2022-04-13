@@ -18,42 +18,42 @@ function Game() {
   const [invalidMove, setInvalidMove] = useState(false)
   const [gameMode, setGameMode] = useState(null);
 
-  const startGame = async (gameModeChoice) => {
-    setGameMode(gameModeChoice)
-    const url = BASE_URL + `/start-game/${gameModeChoice}`
+  async function startGame(gameModeChoice) {
+    setGameMode(gameModeChoice);
+    const url = BASE_URL + `/start-game/${gameModeChoice}`;
     return await fetchNewGame(url)
       .then(data => {
-        console.log('start game data:', data)
-        let gridArray = JSON.parse(data.new_grid)
-        setCurrentPlayer(data.reset_current_player1_name)
-        setNewGame(true)
-        setCurrentPlayerMarker(data.reset_current_player_marker)
-        setGridData(gridArray)
+        console.log('start game data:', data);
+        let gridArray = JSON.parse(data.new_grid);
+        setCurrentPlayer(data.reset_current_player1_name);
+        setNewGame(true);
+        setCurrentPlayerMarker(data.reset_current_player_marker);
+        setGridData(gridArray);
       })
-      .catch((error) => console.error("Error getting data for startGame:", error))
+      .catch((error) => console.error("Error getting data for startGame:", error));
   }
 
-  const addPlayerMarker = async (gridData, currentPlayerMarker, playerMove) => {
-    const url = BASE_URL + `/start-game/grid`
+  async function addPlayerMarker(gridData, currentPlayerMarker, playerMove) {
+    const url = BASE_URL + `/start-game/grid`;
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then(data => {
-        console.log(data, 'put')
-        setInvalidMove(false)
+        console.log(data, 'put');
+        setInvalidMove(false);
 
         if (data.updated_grid === "Invalid move. Try again") {
-          setInvalidMove(true)
+          setInvalidMove(true);
         } else {
-          let updatedGridArray = JSON.parse(data.updated_grid)
-          setGridData(updatedGridArray)
-          setCurrentPlayerMarker(data.current_player_marker)
-          setGameStatus(data.game_status)
-          
-          if (data.game_status === "Won"){
-            setWinner(data.winner)
+          let updatedGridArray = JSON.parse(data.updated_grid);
+          setGridData(updatedGridArray);
+          setCurrentPlayerMarker(data.current_player_marker);
+          setGameStatus(data.game_status);
+
+          if (data.game_status === "Won") {
+            setWinner(data.winner);
           }
         }
       })
-      .catch((error) => console.error("Error getting data for addPlayerMarker:", error))
+      .catch((error) => console.error("Error getting data for addPlayerMarker:", error));
   }
 
   const handleGameExit = () => {

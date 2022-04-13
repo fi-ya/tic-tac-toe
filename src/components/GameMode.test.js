@@ -1,17 +1,12 @@
-import {render, screen} from '@testing-library/react'
+import {fireEvent, render, screen} from '@testing-library/react'
 import React from 'react'
 import GameMode from './GameMode'
 import Game from './Game'
+// import startGame from './Game'
 
 beforeEach(()=>{
   render(<GameMode/>);
 })
-
-const mockSetGameMode = jest.fn();
-const mockStartGame = jest.fn((value) => {
-  const mockFetchNewGame = jest.fn((value)=> {data});
-    return 
-});
 
 describe ('GameMode', () =>{
   it('should render a heading ',() =>{
@@ -39,4 +34,15 @@ describe ('GameMode', () =>{
     const gameModeButtonElements = screen.getAllByRole('button');
     expect(gameModeButtonElements.length).toBe(2);
   })
+
+  it('should call startGame function on click', ()=>{
+    expect.assertions(1);
+    const humanVsHumanBtn = screen.getByRole('button', {  name: /human vs human/i})
+
+    const mockStartGame = jest.fn((value));
+
+    fireEvent.click(humanVsHumanBtn)
+
+  })
 })
+
