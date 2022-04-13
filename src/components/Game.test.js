@@ -14,7 +14,7 @@ beforeAll(() => {
 
 describe ('Game', () =>{
 
-  it('should play a full human vs human game', async()=>{
+  xit('should play a full human vs human game', async()=>{
     render(<Game/>);
     const humanVsHumanBtnElement = screen.getByRole('button', {  name: /human vs human/i});
     

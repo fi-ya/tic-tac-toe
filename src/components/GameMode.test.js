@@ -1,7 +1,6 @@
-import {fireEvent, render, screen} from '@testing-library/react'
+import { render, screen} from '@testing-library/react'
 import React from 'react'
 import GameMode from './GameMode'
-import Game from './Game'
 import userEvent from '@testing-library/user-event'
 
 describe ('GameMode', () =>{
@@ -37,23 +36,30 @@ describe ('GameMode', () =>{
 
   it('human vs human game button clicked', async ()=>{
     expect.assertions(2);
+
     let choice;
-    // stub/spy on startGame
     const mockStartGameStub = jest.fn(choice);
-    
-    // const mockStartGameSpy = jest.spyOn(startGame, 'startGame')
     render(<GameMode startGame={mockStartGameStub}/>);
-    
-    // grab button element
+
     const humanVsHumanBtn = screen.getByRole('button', {  name: /human vs human/i})
-   
-    // user click button 
     userEvent.click(humanVsHumanBtn);
 
-    // ask if called , called with value
     expect(mockStartGameStub).toBeCalled();
     expect(mockStartGameStub).toBeCalledWith(humanVsHumanBtn.value);
-    
+  })
+
+ it('computer vs human game button clicked', async ()=>{
+    expect.assertions(2);
+
+    let choice;
+    const mockStartGameStub = jest.fn(choice);
+    render(<GameMode startGame={mockStartGameStub}/>);
+
+    const computerVsHumanBtn = screen.getByRole('button', {  name: /computer vs human/i})
+    userEvent.click(computerVsHumanBtn);
+
+    expect(mockStartGameStub).toBeCalled();
+    expect(mockStartGameStub).toBeCalledWith(computerVsHumanBtn.value);
   })
  
 })
