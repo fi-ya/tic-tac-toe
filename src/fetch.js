@@ -5,7 +5,8 @@ export const fetchNewGame = async (url) => {
     }
   })
     .then(response => {
-      console.log(response, 'response')
+      console.log('response from fetchGame', response )
+      console.log('response from fetchGame STATUS', response.status )
       if (!response.ok) throw new Error(response.status);
       return response.json()
     })

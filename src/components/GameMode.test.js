@@ -61,6 +61,5 @@ describe ('GameMode', () =>{
     expect(mockStartGameStub).toBeCalled();
     expect(mockStartGameStub).toBeCalledWith(computerVsHumanBtn.value);
   })
- 
 })
 

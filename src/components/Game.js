@@ -21,8 +21,10 @@ function Game() {
   async function startGame(gameModeChoice) {
     setGameMode(gameModeChoice);
     const url = BASE_URL + `/start-game/${gameModeChoice}`;
+    
     return await fetchNewGame(url)
       .then(data => {
+
         console.log('start game data:', data);
         let gridArray = JSON.parse(data.new_grid);
         setCurrentPlayer(data.reset_current_player1_name);

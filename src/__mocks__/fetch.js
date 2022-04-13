@@ -1,6 +1,6 @@
-const player1_name : 'Human',
-mockFetchNewGameResponse = {
-  reset_current_  reset_current_player_marker : 'X',
+const mockFetchNewGameResponse = {
+  reset_current_player1_name : 'Human',
+  reset_current_player_marker : 'X',
   new_grid : '["1", "2", "3", "4", "5", "6", "7", "8", "9"]'
 }
 
