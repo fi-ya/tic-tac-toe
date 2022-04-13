@@ -5,30 +5,30 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Installation
 
 Clone repository 
-### `git clone git@github.com:fi-ya/tic-tac-toe.git`
+#### `git clone git@github.com:fi-ya/tic-tac-toe.git`
 
 In the project directory, to install dependencies run:
-
-### `npm install`
+#### `npm install`
 
 ## Run project
 
 Use the following commands to run , test, build this project. 
-### `npm start`
-
+#### `npm start`
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
-####  Note: There are currently NO tests for this project 
+Run following command in terminal to run test suite 
+#### `npm test`
+
+Run following command in terminal to view test coverage
+#### `open coverage/lcov-report/index.html`
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
+#### `npm run build`
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
