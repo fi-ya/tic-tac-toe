@@ -1,7 +1,8 @@
 import { render, screen} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import GameMode from './GameMode'
-import userEvent from '@testing-library/user-event'
+
 
 describe ('GameMode', () =>{
   it('should render a heading ',() =>{

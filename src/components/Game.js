@@ -62,7 +62,7 @@ function Game() {
     setExitGame(true)
   }
 
-  const handleReplayGame = async () => {
+  const handleReplayGame = () => {
     setGameMode(null)
     setNewGame(true)
     setGameStatus("Keep playing")
@@ -99,9 +99,8 @@ function Game() {
                     <h2>Congratulations {winner} won!!!</h2>
                     <ReplayOrExit
                       handleReplayGame={handleReplayGame}
-                      startGame={startGame}
                       handleGameExit={handleGameExit}
-                      exitGame={exitGame} />
+                      exitGame={exitGame}/>
                   </section>
                 )
               : (
