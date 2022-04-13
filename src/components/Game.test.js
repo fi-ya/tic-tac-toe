@@ -4,46 +4,33 @@ import React from 'react'
 import Game from './Game'
 import GameMode from './GameMode'
 
-const mockSetGameMode = jest.fn((mode)=>{
-  return mode
-});
-const mockStartGame = jest.fn((mode) => {
-  // const mockFetchNewGame = jest.fn((mode)=> { 
-    // return data from mockApiCall
-    return mode
-  });
-    // return setNewGame(true)
-    // return mockFetchNewGame
-// });
+beforeAll(() => {
+  global.fetch = () =>
+    Promise.resolve({
+      // json: () => Promise.resolve([]),
+      data : 'data'
+    })
+})
 
 describe ('Game', () =>{
-  
-  xit('should render a paragraph containing instructions ', async() =>{
-    render(<GameMode setGameMode={mockSetGameMode} startGame={mockStartGame}/>);
+
+  it('should play a full human vs human game', async()=>{
+    render(<Game/>);
     const humanVsHumanBtnElement = screen.getByRole('button', {  name: /human vs human/i});
-    const gameMode = humanVsHumanBtnElement.value
     
-    fireEvent.click(humanVsHumanBtnElement);
-    mockSetGameMode(gameMode);
-    mockStartGame(gameMode)
+    // mock response from gameMode get request
+    // jest.spyOn(global, "fetch").mockImplementation(() => Promise.resolve({ json: () => Promise.resolve(['banana']) }))
 
-    const gameInstruction = await screen.getByRole("paragraph", { name: /click on the square you want to place your move/i})
-    screen.debug()
-    expect(gameInstruction).toBeInTheDocument()
-   
+    userEvent.click(humanVsHumanBtnElement)
+
+    console.log('this')
+    
+    // expect(screen.getByText(/click on the square you want to place your move/i)).toBeInTheDocument();
+    // const humanMove1 = screen.getByRole('button', {  name: /1/i});
+    // expect(screen.getByRole('button', {  name: /x/i})).toBeInTheDocument();
   })
 
-  xit('should on click of human vs human game start game', async ()=>{
-    render(<GameMode
-            setGameMode={mockSetGameMode}
-            startGame={mockStartGame}/>)
 
-    const humanVsHumanBtnElement = screen.getByRole('button', {  name: /human vs human/i})
-    
-   const clickEvent =  fireEvent.click(humanVsHumanBtnElement)
-   console.log('click',clickEvent);
-   console.log('humanVsHumanBtnElement',humanVsHumanBtnElement.value);
-    // expect(humanVsHumanBtn).toBeInTheDocument();
-  })
- 
+
+  
 })

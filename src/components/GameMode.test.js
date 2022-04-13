@@ -35,7 +35,7 @@ describe ('GameMode', () =>{
     expect(gameModeButtonElements.length).toBe(2);
   })
 
-  it('should call startGame function on click(stub)', async ()=>{
+  it('human vs human game button clicked', async ()=>{
     expect.assertions(2);
     let choice;
     // stub/spy on startGame
@@ -55,23 +55,6 @@ describe ('GameMode', () =>{
     expect(mockStartGameStub).toBeCalledWith(humanVsHumanBtn.value);
     
   })
-
-
-  xit('should call startGame function on click (spyOn)', async ()=>{
-    
-    // stub/spy on startGame
-    const mockStartGameSpy = jest.spyOn(startGame, 'startGame')
-    render(<GameMode startGame={mockStartGameStub}/>);
-    
-    // grab button element
-    const humanVsHumanBtn = screen.getByRole('button', {  name: /human vs human/i})
-   
-    // user click button 
-    userEvent.click(humanVsHumanBtn)
-
-    // ask if called , called with value
-    expect(mockStartGameSpy).toBeCalled();
-    expect.assertions(1);
-  })
+ 
 })
 

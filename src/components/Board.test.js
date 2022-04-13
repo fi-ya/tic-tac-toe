@@ -20,7 +20,6 @@ describe('Board', ()=>{
   it('should render nine buttons', ()=>{
     const gridButtonElements = screen.getAllByRole('button');
     expect(gridButtonElements.length).toBe(9);
-    expect(gridButtonElements).toBeInTheDocument();
   })
 
   it('should render a number,one in each square', async()=>{
