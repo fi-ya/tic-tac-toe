@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, screen, fireEvent, waitFor} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 import Game from './Game'
@@ -11,11 +11,8 @@ describe('Game', () =>{
   it('wins human vs human game and exit successfully', async()=>{
 
     render(<Game/>)
-
     await selectHumanVsHumanGame();
-
     await playWinningGame();
-
     const quitButtonElement = screen.getByRole('button', {  name: /quit/i})
     
     expect(quitButtonElement).toBeInTheDocument();
@@ -29,11 +26,8 @@ describe('Game', () =>{
   it('wins human vs human game and replays successfully', async()=>{
 
     render(<Game/>)
-
     await selectHumanVsHumanGame();
-
     await playWinningGame()
-    
     const replayButtonElement = screen.getByRole('button', {  name: /replay/i})
     
     expect(replayButtonElement).toBeInTheDocument();
@@ -50,11 +44,8 @@ describe('Game', () =>{
   it('draws human vs human game and replays successfully', async()=>{
 
     render(<Game/>)
-
     await selectHumanVsHumanGame();
-
     await playTieGame()
-
     const tieHeadingElement = screen.getByRole('heading', {  name: /game over!! it's a tie!!!/i});
   
     expect(tieHeadingElement).toBeInTheDocument();
