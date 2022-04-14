@@ -23,8 +23,8 @@ describe('ReplayOrExit', ()=>{
   })
 
   it('should display goodbye message', ()=>{
-    const mockExitGameStatus = true
-    render(<ReplayOrExit exitGame={mockExitGameStatus}/>);
+    const exitGameStatusStub = true
+    render(<ReplayOrExit exitGame={exitGameStatusStub}/>);
 
     const exitHeadingElement = screen.getByRole('heading', {  name: /thank you for playing! goodbye!/i});
 
@@ -33,21 +33,21 @@ describe('ReplayOrExit', ()=>{
 
   it('replay button clicked', ()=>{
     expect.assertions(1);
-    const mockExitGameStatus = false
-    const mockHandleReplayGameStub = jest.fn();
-    render(<ReplayOrExit handleReplayGame={mockHandleReplayGameStub} exitGame={mockExitGameStatus}/>);
+    const exitGameStatusStub = false
+    const handleReplayGameStub = jest.fn();
+    render(<ReplayOrExit handleReplayGame={handleReplayGameStub} exitGame={exitGameStatusStub}/>);
 
     const replayButtonElement = screen.getByRole('button', {  name: /replay/i});
     userEvent.click(replayButtonElement);
 
-    expect(mockHandleReplayGameStub).toBeCalled();
+    expect(handleReplayGameStub).toBeCalled();
   })  
 
   it('quit button clicked', ()=>{
     expect.assertions(1);
-    const mockExitGameStatus = false
+    const exitGameStatusStub = false
     const mockHandleExitGameStub = jest.fn();
-    render(<ReplayOrExit handleGameExit={mockHandleExitGameStub} exitGame={mockExitGameStatus}/>);
+    render(<ReplayOrExit handleGameExit={mockHandleExitGameStub} exitGame={exitGameStatusStub}/>);
 
     const quitButtonElement = screen.getByRole('button', {  name: /quit/i});
     userEvent.click(quitButtonElement);

@@ -45,3 +45,10 @@ export const mockTieGameDataResponse = {
   game_status : 'Tie',
   winner : 'X'
 }
+
+export const mockInvalidMoveGameDataResponse = {
+  updated_grid : 'Invalid move. Try again',
+  current_player_marker : 'O',
+  game_status : 'Keep playing',
+  winner : 'X'
+}

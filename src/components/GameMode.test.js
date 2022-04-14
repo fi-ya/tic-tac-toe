@@ -39,28 +39,28 @@ describe ('GameMode', () =>{
     expect.assertions(2);
 
     let choice;
-    const mockStartGameStub = jest.fn(choice);
-    render(<GameMode startGame={mockStartGameStub}/>);
+    const startGameStub = jest.fn(choice);
+    render(<GameMode startGame={startGameStub}/>);
 
     const humanVsHumanBtn = screen.getByRole('button', {  name: /human vs human/i})
     userEvent.click(humanVsHumanBtn);
 
-    expect(mockStartGameStub).toBeCalled();
-    expect(mockStartGameStub).toBeCalledWith(humanVsHumanBtn.value);
+    expect(startGameStub).toBeCalled();
+    expect(startGameStub).toBeCalledWith(humanVsHumanBtn.value);
   })
 
  it('computer vs human game button clicked', async ()=>{
     expect.assertions(2);
 
     let choice;
-    const mockStartGameStub = jest.fn(choice);
-    render(<GameMode startGame={mockStartGameStub}/>);
+    const startGameStub = jest.fn(choice);
+    render(<GameMode startGame={startGameStub}/>);
 
     const computerVsHumanBtn = screen.getByRole('button', {  name: /computer vs human/i})
     userEvent.click(computerVsHumanBtn);
 
-    expect(mockStartGameStub).toBeCalled();
-    expect(mockStartGameStub).toBeCalledWith(computerVsHumanBtn.value);
+    expect(startGameStub).toBeCalled();
+    expect(startGameStub).toBeCalledWith(computerVsHumanBtn.value);
   })
 })
 

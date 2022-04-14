@@ -25,30 +25,30 @@ describe('Board', ()=>{
   it('player X clicks on grid button 1', ()=>{
     expect.assertions(2);
 
-    const mockAddPlayerMarkerStub = jest.fn();
+    const addPlayerMarkerStub = jest.fn();
     const gridDataStub = [1,2,3,4,5,6,7,8,9];
     const currentPlayerMarkerStub = 'X';
-    render(<Board gridData={gridDataStub} currentPlayerMarker={currentPlayerMarkerStub} addPlayerMarker={mockAddPlayerMarkerStub}/>);
+    render(<Board gridData={gridDataStub} currentPlayerMarker={currentPlayerMarkerStub} addPlayerMarker={addPlayerMarkerStub}/>);
 
     const gridButtonElementOne = screen.getByRole('button', {  name: /1/i});
     userEvent.click(gridButtonElementOne);
 
-    expect(mockAddPlayerMarkerStub).toBeCalled();
-    expect(mockAddPlayerMarkerStub).toBeCalledWith(gridDataStub, currentPlayerMarkerStub, gridButtonElementOne.textContent);
+    expect(addPlayerMarkerStub).toBeCalled();
+    expect(addPlayerMarkerStub).toBeCalledWith(gridDataStub, currentPlayerMarkerStub, gridButtonElementOne.textContent);
   })
 
   it('player O clicks on grid button 2 ', async()=>{
     expect.assertions(2);
     
-    const mockAddPlayerMarkerStub = jest.fn();
+    const addPlayerMarkerStub = jest.fn();
     const gridDataStub = ['X',2,3,4,5,6,7,8,9];
     const currentPlayerMarkerStub = 'O';
-    render(<Board gridData={gridDataStub} currentPlayerMarker={currentPlayerMarkerStub} addPlayerMarker={mockAddPlayerMarkerStub}/>);
+    render(<Board gridData={gridDataStub} currentPlayerMarker={currentPlayerMarkerStub} addPlayerMarker={addPlayerMarkerStub}/>);
 
     const gridButtonElementTwo = screen.getByRole('button', {  name: /2/i});
     userEvent.click(gridButtonElementTwo);
 
-    expect(mockAddPlayerMarkerStub).toBeCalled();
-    expect(mockAddPlayerMarkerStub).toBeCalledWith(gridDataStub, currentPlayerMarkerStub, gridButtonElementTwo.textContent);
+    expect(addPlayerMarkerStub).toBeCalled();
+    expect(addPlayerMarkerStub).toBeCalledWith(gridDataStub, currentPlayerMarkerStub, gridButtonElementTwo.textContent);
   })
 })

@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 import Game from './Game'
 import { server, rest } from '../testServer'
-import {mockFetchNewGameResponse, mockUpdateGameDataResponseOne,mockUpdateGameDataResponseTwo,mockUpdateGameDataResponseThree, mockUpdateGameDataResponseFour, mockUpdateGameDataResponseFive, mockTieGameDataResponse } from '../__mocks__/fetch'
+import {mockFetchNewGameResponse, mockUpdateGameDataResponseOne,mockUpdateGameDataResponseTwo,mockUpdateGameDataResponseThree, mockUpdateGameDataResponseFour, mockUpdateGameDataResponseFive, mockTieGameDataResponse, mockInvalidMoveGameDataResponse} from '../__mocks__/fetch'
 
 describe('Game', () =>{
 
@@ -63,6 +63,32 @@ describe('Game', () =>{
     expect(gameModeButtonElements.length).toBe(2);
     expect(screen.getByRole('button', {  name: /human vs human/i})).toBeInTheDocument();
     expect(screen.getByRole('button', {  name: /computer vs human/i})).toBeInTheDocument();
+  })
+
+  it('displays an error message if the position has already been taken', async()=>{
+
+    render(<Game/>)
+    await selectHumanVsHumanGame();
+
+    // first turn x
+    const buttonElementOne = screen.getByRole('button', {  name: /1/i});
+    await mockApiPutRequest(mockUpdateGameDataResponseOne)
+    userEvent.click(buttonElementOne);
+    await waitFor(() => screen.getByRole('heading', {  name: /player o turn/i}));
+
+    expect(buttonElementOne.textContent).not.toBe('1');
+    expect(buttonElementOne.textContent).toBe('X');
+
+    
+    // second turn o
+    const buttonElementOneAgain = screen.getByRole('button', {  name: /x/i});
+    await mockApiPutRequest(mockInvalidMoveGameDataResponse)
+    userEvent.click(buttonElementOneAgain);
+    await waitFor(() => screen.getByRole('heading', {  name: /invalid move\. try again!/i}));
+    
+    expect(screen.getByRole('heading', {  name: /invalid move\. try again!/i})).toBeInTheDocument();
+    expect(buttonElementOneAgain.textContent).not.toBe('O');
+    expect(buttonElementOneAgain.textContent).toBe('X');
   })
 })
 
