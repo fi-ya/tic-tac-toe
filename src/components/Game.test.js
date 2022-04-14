@@ -8,7 +8,7 @@ import {mockFetchNewGameResponse, mockUpdateGameDataResponseOne,mockUpdateGameDa
 
 describe('Game', () =>{
 
-  it('should play a winning human vs human game and exit successfully', async()=>{
+  it('wins human vs human game and exit successfully', async()=>{
 
     render(<Game/>)
 
@@ -26,7 +26,7 @@ describe('Game', () =>{
     expect(goodbyeHeadingElement).toBeInTheDocument();
   })
 
-  it('should play a winning human vs human game and when clicked replay is shown the two game mode options', async()=>{
+  it('wins human vs human game and replays successfully', async()=>{
 
     render(<Game/>)
 
@@ -47,7 +47,7 @@ describe('Game', () =>{
     expect(screen.getByRole('button', {  name: /computer vs human/i})).toBeInTheDocument();
   })
 
-  it('human vs human game draws and replays successfully', async()=>{
+  it('draws human vs human game and replays successfully', async()=>{
 
     render(<Game/>)
 
@@ -161,6 +161,7 @@ async function playWinningGame(){
 }
 
 async function playTieGame(){
+  // test from last turn
   const lastPlayButtonElement = screen.getByRole('button', {  name: /9/i});
   await mockApiPutRequest(mockTieGameDataResponse)
   userEvent.click(lastPlayButtonElement)
