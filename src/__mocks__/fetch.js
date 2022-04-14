@@ -38,3 +38,10 @@ export const mockUpdateGameDataResponseFive = {
   game_status : 'Won',
   winner : 'X'
 }
+
+export const mockTieGameDataResponse = {
+  updated_grid : '["X", "X", "O", "O", "X", "X", "X", "O", "O"]',
+  current_player_marker : 'O',
+  game_status : 'Tie',
+  winner : 'X'
+}

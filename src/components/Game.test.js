@@ -4,7 +4,76 @@ import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 import Game from './Game'
 import { server, rest } from '../testServer'
-import {mockFetchNewGameResponse, mockUpdateGameDataResponseOne,mockUpdateGameDataResponseTwo,mockUpdateGameDataResponseThree, mockUpdateGameDataResponseFour, mockUpdateGameDataResponseFive } from '../__mocks__/fetch'
+import {mockFetchNewGameResponse, mockUpdateGameDataResponseOne,mockUpdateGameDataResponseTwo,mockUpdateGameDataResponseThree, mockUpdateGameDataResponseFour, mockUpdateGameDataResponseFive, mockTieGameDataResponse } from '../__mocks__/fetch'
+
+describe('Game', () =>{
+
+  it('should play a winning human vs human game and exit successfully', async()=>{
+
+    render(<Game/>)
+
+    await selectHumanVsHumanGame();
+
+    await playWinningGame();
+
+    const quitButtonElement = screen.getByRole('button', {  name: /quit/i})
+    
+    expect(quitButtonElement).toBeInTheDocument();
+
+    userEvent.click(quitButtonElement);
+    const goodbyeHeadingElement = screen.getByRole('heading', {  name: /thank you for playing! goodbye!/i})
+
+    expect(goodbyeHeadingElement).toBeInTheDocument();
+  })
+
+  it('should play a winning human vs human game and when clicked replay is shown the two game mode options', async()=>{
+
+    render(<Game/>)
+
+    await selectHumanVsHumanGame();
+
+    await playWinningGame()
+    
+    const replayButtonElement = screen.getByRole('button', {  name: /replay/i})
+    
+    expect(replayButtonElement).toBeInTheDocument();
+
+    // replay
+    userEvent.click(replayButtonElement);
+    const gameModeButtonElements = screen.getAllByRole('button');
+
+    expect(gameModeButtonElements.length).toBe(2);
+    expect(screen.getByRole('button', {  name: /human vs human/i})).toBeInTheDocument();
+    expect(screen.getByRole('button', {  name: /computer vs human/i})).toBeInTheDocument();
+  })
+
+  it('human vs human game draws and replays successfully', async()=>{
+
+    render(<Game/>)
+
+    await selectHumanVsHumanGame();
+
+    await playTieGame()
+
+    const tieHeadingElement = screen.getByRole('heading', {  name: /game over!! it's a tie!!!/i});
+  
+    expect(tieHeadingElement).toBeInTheDocument();
+    
+    const quitButtonElement = screen.getByRole('button', {  name: /quit/i})
+    const replayButtonElement = screen.getByRole('button', {  name: /replay/i})
+    
+    expect(quitButtonElement).toBeInTheDocument();
+    expect(replayButtonElement).toBeInTheDocument();
+
+    // replay
+    userEvent.click(replayButtonElement);
+    const gameModeButtonElements = screen.getAllByRole('button');
+
+    expect(gameModeButtonElements.length).toBe(2);
+    expect(screen.getByRole('button', {  name: /human vs human/i})).toBeInTheDocument();
+    expect(screen.getByRole('button', {  name: /computer vs human/i})).toBeInTheDocument();
+  })
+})
 
 async function mockApiGetRequest(btnValue){
   server.use(
@@ -27,81 +96,73 @@ async function mockApiPutRequest(mockApiResponse){
   )
 }
 
-describe('Game', () =>{
-
-  it('should play a full human vs human game and exit successfully', async()=>{
-
-    render(<Game/>)
-
-    // select human vs human game mode
-    const humanVsHumanBtnElement = screen.getByRole('button', {  name: /human vs human/i});
-    await mockApiGetRequest(humanVsHumanBtnElement.value)
-    userEvent.click(humanVsHumanBtnElement);
-    await waitFor(() => screen.getByText(/click on the square you want to place your move/i));
-    let playerHeadingElement = screen.getByRole('heading', {  name: /player x turn/i});
-    const instructionTextElement = screen.getByText(/click on the square you want to place your move/i);
-    
-    expect(playerHeadingElement).toBeInTheDocument();
-    expect(instructionTextElement).toBeInTheDocument();
-
-    // first turn x
-    const buttonElementOne = screen.getByRole('button', {  name: /1/i});
-    await mockApiPutRequest(mockUpdateGameDataResponseOne )
-    userEvent.click(buttonElementOne);
-    await waitFor(() => screen.getByRole('heading', {  name: /player o turn/i}));
-    
-    expect(buttonElementOne.textContent).not.toBe('1');
-    expect(buttonElementOne.textContent).toBe('X');
-
-    // second turn o
-    const buttonElementTwo = screen.getByRole('button', {  name: /2/i});
-    await mockApiPutRequest(mockUpdateGameDataResponseTwo)
-    userEvent.click(buttonElementTwo);
-    await waitFor(() => screen.getByRole('heading', {  name: /player x turn/i}));
-    
-    expect(buttonElementTwo.textContent).not.toBe('2');
-    expect(buttonElementTwo.textContent).toBe('O');
-
-    // third turn x
-    const buttonElementFive = screen.getByRole('button', {  name: /5/i});
-    await mockApiPutRequest(mockUpdateGameDataResponseThree)
-    userEvent.click(buttonElementFive);
-    await waitFor(() => screen.getByRole('heading', {  name: /player o turn/i}));
-    
-    expect(buttonElementFive.textContent).not.toBe('5');
-    expect(buttonElementFive.textContent).toBe('X');
-
-    // fourth turn o
-    const buttonElementSix = screen.getByRole('button', {  name: /6/i});
-    await mockApiPutRequest(mockUpdateGameDataResponseFour)
-    userEvent.click(buttonElementSix);
-    await waitFor(() => screen.getByRole('heading', {  name: /player x turn/i}));
-    
-    expect(buttonElementSix.textContent).not.toBe('6');
-    expect(buttonElementSix.textContent).toBe('O');
-
-    // fifth turn x
-    const buttonElementNine = screen.getByRole('button', {  name: /9/i});
-    await mockApiPutRequest(mockUpdateGameDataResponseFive)
-    userEvent.click(buttonElementNine);
-    await waitFor(() => screen.getByRole('heading', {  name: /congratulations x won!!!/i }));
-    
-    expect(buttonElementNine.textContent).not.toBe('9');
-    expect(buttonElementNine.textContent).toBe('X');
-
-    // winner
-    const congratsHeadingElement = screen.getByRole('heading', {  name: /congratulations x won!!!/i})
-    const replayButtonElement = screen.getByRole('button', {  name: /replay/i})
-    const quitButtonElement = screen.getByRole('button', {  name: /quit/i})
-    
-    expect(congratsHeadingElement).toBeInTheDocument();
-    expect(replayButtonElement).toBeInTheDocument();
-    expect(quitButtonElement).toBeInTheDocument();
-
-    userEvent.click(quitButtonElement);
-    const goodbyeHeadingElement = screen.getByRole('heading', {  name: /thank you for playing! goodbye!/i})
-
-    expect(goodbyeHeadingElement).toBeInTheDocument();
+async function selectHumanVsHumanGame(){
+  const humanVsHumanBtnElement = screen.getByRole('button', {  name: /human vs human/i});
+  await mockApiGetRequest(humanVsHumanBtnElement.value)
+  userEvent.click(humanVsHumanBtnElement);
+  await waitFor(() => screen.getByText(/click on the square you want to place your move/i));
+  const playerHeadingElement = screen.getByRole('heading', {  name: /player x turn/i});
+  const instructionTextElement = screen.getByText(/click on the square you want to place your move/i);
   
-  })
-})
+  expect(playerHeadingElement).toBeInTheDocument();
+  expect(instructionTextElement).toBeInTheDocument();
+}
+
+async function playWinningGame(){
+  // first turn x
+  const buttonElementOne = screen.getByRole('button', {  name: /1/i});
+  await mockApiPutRequest(mockUpdateGameDataResponseOne )
+  userEvent.click(buttonElementOne);
+  await waitFor(() => screen.getByRole('heading', {  name: /player o turn/i}));
+  
+  expect(buttonElementOne.textContent).not.toBe('1');
+  expect(buttonElementOne.textContent).toBe('X');
+
+  // second turn o
+  const buttonElementTwo = screen.getByRole('button', {  name: /2/i});
+  await mockApiPutRequest(mockUpdateGameDataResponseTwo)
+  userEvent.click(buttonElementTwo);
+  await waitFor(() => screen.getByRole('heading', {  name: /player x turn/i}));
+  
+  expect(buttonElementTwo.textContent).not.toBe('2');
+  expect(buttonElementTwo.textContent).toBe('O');
+
+  // third turn x
+  const buttonElementFive = screen.getByRole('button', {  name: /5/i});
+  await mockApiPutRequest(mockUpdateGameDataResponseThree)
+  userEvent.click(buttonElementFive);
+  await waitFor(() => screen.getByRole('heading', {  name: /player o turn/i}));
+  
+  expect(buttonElementFive.textContent).not.toBe('5');
+  expect(buttonElementFive.textContent).toBe('X');
+
+  // fourth turn o
+  const buttonElementSix = screen.getByRole('button', {  name: /6/i});
+  await mockApiPutRequest(mockUpdateGameDataResponseFour)
+  userEvent.click(buttonElementSix);
+  await waitFor(() => screen.getByRole('heading', {  name: /player x turn/i}));
+  
+  expect(buttonElementSix.textContent).not.toBe('6');
+  expect(buttonElementSix.textContent).toBe('O');
+
+  // fifth turn x
+  const buttonElementNine = screen.getByRole('button', {  name: /9/i});
+  await mockApiPutRequest(mockUpdateGameDataResponseFive)
+  userEvent.click(buttonElementNine);
+  await waitFor(() => screen.getByRole('heading', {  name: /congratulations x won!!!/i }));
+  
+  expect(buttonElementNine.textContent).not.toBe('9');
+  expect(buttonElementNine.textContent).toBe('X');
+
+  // winner
+  const congratsHeadingElement = screen.getByRole('heading', {  name: /congratulations x won!!!/i})
+  
+  expect(congratsHeadingElement).toBeInTheDocument();
+}
+
+async function playTieGame(){
+  const lastPlayButtonElement = screen.getByRole('button', {  name: /9/i});
+  await mockApiPutRequest(mockTieGameDataResponse)
+  userEvent.click(lastPlayButtonElement)
+  await waitFor(() => screen.getByRole('heading', {  name: /game over!! it's a tie!!!/i}))
+}
