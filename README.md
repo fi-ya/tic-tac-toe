@@ -38,6 +38,7 @@ Run following command in terminal to run test suite
 Launches the test runner in the interactive watch mode.\
 
 Run following command in terminal to view test coverage
+#### `npm run test:coverage`
 #### `open coverage/lcov-report/index.html`
 Launches in a browser showing test coverage of each file.\
 
