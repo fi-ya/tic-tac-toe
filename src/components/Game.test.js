@@ -1,25 +1,10 @@
 import React from 'react'
 import {render, screen, fireEvent, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { rest } from 'msw'
-import { setupServer, setupWorker } from 'msw/node'
 import '@testing-library/jest-dom'
 import Game from './Game'
+import { server, rest } from '../testServer'
 import {mockFetchNewGameResponse, mockUpdateGameDataResponseOne,mockUpdateGameDataResponseTwo,mockUpdateGameDataResponseThree, mockUpdateGameDataResponseFour, mockUpdateGameDataResponseFive } from '../__mocks__/fetch'
-
-const server = setupServer(
-  rest.get("http://localhost:4567", (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json(mockFetchNewGameResponse)
-    )
-  })
-);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
 
 describe('Game', () =>{
 
