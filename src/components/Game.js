@@ -24,12 +24,10 @@ function Game() {
     
     return await fetchNewGame(url)
       .then(data => {
-
-        console.log('start game data:', data);
         let gridArray = JSON.parse(data.new_grid);
-        setCurrentPlayer(data.reset_current_player1_name);
+        setCurrentPlayer(data.player1_name);
         setNewGame(true);
-        setCurrentPlayerMarker(data.reset_current_player_marker);
+        setCurrentPlayerMarker(data.player1_marker);
         setGridData(gridArray);
       })
       .catch((error) => console.error("Error getting data for startGame:", error));
@@ -39,7 +37,6 @@ function Game() {
     const url = BASE_URL + `/start-game/grid`;
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then(data => {
-        console.log(data, 'put');
         setInvalidMove(false);
 
         if (data.updated_grid === "Invalid move. Try again") {
