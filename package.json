@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^9.5.4",
     "msw": "^0.39.2"
   }
 }
