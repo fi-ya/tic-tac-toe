@@ -117,6 +117,7 @@ async function selectHumanVsHumanGame(){
   const humanVsHumanBtnElement = screen.getByRole('button', {  name: /human vs human/i});
   await mockApiGetRequest(humanVsHumanBtnElement.value)
   userEvent.click(humanVsHumanBtnElement);
+  
   await waitFor(() => screen.getByText(/click on the square you want to place your move/i));
   const playerHeadingElement = screen.getByRole('heading', {  name: /player x turn/i});
   const instructionTextElement = screen.getByText(/click on the square you want to place your move/i);
