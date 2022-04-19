@@ -69,20 +69,8 @@ describe('Game', () => {
     cy.get('section > h1').should('have.text', 'Select game mode')
     cy.get('[name="human_human"]').should('have.text', 'Human vs Human')
     cy.get('[name="computer_human"]').should('have.text', 'Computer vs Human')
-    cy.get('#game-mode-options>button').its('length').should('be.gt', 2)
+    cy.get('#game-mode-options>button').its('length').should('be.eq', 2)
     cy.get('[name="human_human"]').click()
-  })
-
- it('should play a human vs human game and quit successfully', () => {
-    cy.get('[name="human_human"]').click()
-    cy.get('h2').should('have.text', 'Player X turn')
-    cy.get('p').should('have.text', 'Click on the square you want to place your move')
-    playWinningGame()
-    cy.get('h2').should('have.text', 'Congratulations X won!!!')
-    cy.get('.flex-gap > :nth-child(1)').should('have.text', 'Replay')
-    cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
-    cy.get('.flex-gap > :nth-child(2)').click()
-    cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!')    
   })
 
   it('should display a error message when invalid move made', ()=>{
@@ -99,6 +87,18 @@ describe('Game', () => {
     cy.get('.grid-container > :nth-child(2)').click()
     cy.get('.grid-container > :nth-child(2)').should('have.text', 'O')
     cy.get('.App').should('not.contain', '.padding-sm')
+  })
+
+ it('should play a human vs human game and quit successfully', () => {
+    cy.get('[name="human_human"]').click()
+    cy.get('h2').should('have.text', 'Player X turn')
+    cy.get('p').should('have.text', 'Click on the square you want to place your move')
+    playWinningGame()
+    cy.get('h2').should('have.text', 'Congratulations X won!!!')
+    cy.get('.flex-gap > :nth-child(1)').should('have.text', 'Replay')
+    cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
+    cy.get('.flex-gap > :nth-child(2)').click()
+    cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!')    
   })
 
   it('should play a human vs human game and replay a new computer vs human game and quit successfully', () => {
@@ -141,6 +141,22 @@ describe('Game', () => {
     cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
     cy.get('.flex-gap > :nth-child(1)').click()
     cy.get('section > h1').should('have.text', 'Select game mode')
+  })
+
+  it('should play computer vs human game and exit successfully', ()=>{
+ 
+    cy.intercept('GET', '/start-game/2', { fixture: 'computer_human_game' }).as('getComputerVsHumanGame') 
+    
+    cy.get('[name="computer_human"]').click()
+    cy.get('h2').should('have.text', 'Player X turn')
+    cy.get('p').should('have.text', 'Click on the square you want to place your move')
+    cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
+
+    cy.intercept('PUT', '/start-game/grid', { fixture: 'play_turn_one' }).as('putMoveAtOne') 
+    
+    cy.get('.grid-container > :nth-child(1)').click()
+    cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
+    cy.get('h2').should('have.text', 'Player O turn') 
   })
 
 })
