@@ -1,34 +1,50 @@
-# Tic Tac Toe React Front End (with Sinatra Back End)
+# Tic Tac Toe React Front End 
+---
+Tic-tac-toe is played on a three-by-three grid by two players, who alternately place the marks X and O in one of the nine spaces in the grid. The winner is the first to get three marks in a row, or draw when all nine spaces are filled.
+It is convention that the 'X' plays first. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Installation
+To view Sinatra Back End click [**here**](https://github.com/fi-ya/tic_tac_toe_BE)
+
+---
+## Table of Contents 🗂
+
+  - [Installation](#run-game)
+  - [Run project](#run-project)
+  - [Other information](#other-information)
+
+---
+## Installation ⚙️ 
 
 Clone repository 
-### `git clone git@github.com:fi-ya/tic-tac-toe.git`
+#### `git clone git@github.com:fi-ya/tic-tac-toe.git`
 
 In the project directory, to install dependencies run:
-
-### `npm install`
-
-## Run project
+#### `npm install`
+---
+## Run project 🏁
 
 Use the following commands to run , test, build this project. 
-### `npm start`
-
+#### `npm start`
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
-You may also see any lint errors in the console.
+You may also see some lint errors in the console.
 
-### `npm test`
-####  Note: There are currently NO tests for this project 
+Run following command in terminal to run test suite 
+#### `npm test`
 Launches the test runner in the interactive watch mode.\
+
+Run following command in terminal to view test coverage
+#### `npm run test:coverage`
+#### `open coverage/lcov-report/index.html`
+Launches in a browser showing test coverage of each file.\
+
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
+#### `npm run build`
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
@@ -37,7 +53,8 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Other information 
+---
+## Other information 📝
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
