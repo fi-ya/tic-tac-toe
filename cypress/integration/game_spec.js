@@ -37,6 +37,23 @@ describe('Game', () => {
     cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!')    
   })
 
+  it('should display a error message when invalid move made', ()=>{
+    cy.visit('/')
+    cy.get('[name="human_human"]').click()
+    cy.get('h2').should('have.text', 'Player X turn')
+    cy.get('p').should('have.text', 'Click on the square you want to place your move')
+    cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
+    cy.get('.grid-container > :nth-child(1)').click()
+    cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
+    cy.get('h2').should('have.text', 'Player O turn')
+    cy.get('.grid-container > :nth-child(1)').click()
+    cy.get('.padding-sm').should('have.text', 'Invalid move. Try again!')
+    cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
+    cy.get('.grid-container > :nth-child(2)').click()
+    cy.get('.grid-container > :nth-child(2)').should('have.text', 'O')
+    cy.get('.App').should('not.contain', '.padding-sm')
+  })
+
 
 
 })
