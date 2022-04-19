@@ -1,7 +1,11 @@
+import { mockFetchNewGameResponse } from "../../src/__mocks__/fetch"
 describe('Game', () => {
 
   beforeEach(()=>{
     cy.visit('/')
+    // cy.request('GET', '/start-game/1', {
+    //   body: mockFetchNewGameResponse,
+    // })
   })
 
   it('should load the homepage successfully', () => {
@@ -9,6 +13,7 @@ describe('Game', () => {
     cy.get('section > h1').should('have.text', 'Select game mode')
     cy.get('[name="human_human"]').should('have.text', 'Human vs Human')
     cy.get('[name="computer_human"]').should('have.text', 'Computer vs Human')
+    cy.get('[name="human_human"]').click()
   })
 
  it('should play a human vs human game and quit successfully', () => {
@@ -86,5 +91,47 @@ describe('Game', () => {
     cy.get('[name="computer_human"]').click()
     cy.get('p').should('have.text', 'Click on the square you want to place your move')
   })
+
+  it('should display correct message when game tied', ()=> {
+    cy.get('[name="human_human"]').click()
+    cy.get('h2').should('have.text', 'Player X turn')
+    cy.get('p').should('have.text', 'Click on the square you want to place your move')
+    cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
+    cy.get('.grid-container > :nth-child(1)').click()
+    cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
+    cy.get('h2').should('have.text', 'Player O turn')
+    cy.get('.grid-container > :nth-child(3)').should('have.text', '3')
+    cy.get('.grid-container > :nth-child(3)').click()
+    cy.get('.grid-container > :nth-child(3)').should('have.text', 'O')
+    cy.get('h2').should('have.text', 'Player X turn')
+    cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
+    cy.get('.grid-container > :nth-child(2)').click()
+    cy.get('.grid-container > :nth-child(2)').should('have.text', 'X')
+    cy.get('h2').should('have.text', 'Player O turn')
+    cy.get('.grid-container > :nth-child(4)').should('have.text', '4')
+    cy.get('.grid-container > :nth-child(4)').click()
+    cy.get('.grid-container > :nth-child(4)').should('have.text', 'O')
+    cy.get('h2').should('have.text', 'Player X turn')
+    cy.get('.grid-container > :nth-child(5)').should('have.text', '5')
+    cy.get('.grid-container > :nth-child(5)').click()
+    cy.get('.grid-container > :nth-child(5)').should('have.text', 'X')
+    cy.get('h2').should('have.text', 'Player O turn')
+    cy.get('.grid-container > :nth-child(8)').should('have.text', '8')
+    cy.get('.grid-container > :nth-child(8)').click()
+    cy.get('.grid-container > :nth-child(8)').should('have.text', 'O')
+    cy.get('h2').should('have.text', 'Player X turn')
+    cy.get('.grid-container > :nth-child(6)').should('have.text', '6')
+    cy.get('.grid-container > :nth-child(6)').click()
+    cy.get('.grid-container > :nth-child(6)').should('have.text', 'X')
+    cy.get('h2').should('have.text', 'Player O turn')
+    cy.get('.grid-container > :nth-child(9)').should('have.text', '9')
+    cy.get('.grid-container > :nth-child(9)').click()
+    cy.get('.grid-container > :nth-child(9)').should('have.text', 'O')
+    cy.get('h2').should('have.text', 'Player X turn')
+    cy.get('.grid-container > :nth-child(7)').should('have.text', '7')
+    cy.get('.grid-container > :nth-child(7)').click()
+    cy.get('h2').should('have.text', 'Game over!! It\'s a tie!!!')
+  })
+
 
 })
