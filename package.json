@@ -17,7 +17,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/*.js src/**/*.js ",
-    "test:coverage": "CI=true npm test -- --env=jsdom --coverage"
+    "test:coverage": "CI=true npm test -- --env=jsdom --coverage",
+    "cy:open" : "npx cypress open",
+    "coverage:report" : "npx nyc report --reporter=text-summary"
   },
   "eslintConfig": {
     "extends": [
@@ -38,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.9.12",
     "cypress": "^9.5.4",
     "msw": "^0.39.2"
   }
