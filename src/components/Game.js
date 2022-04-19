@@ -37,7 +37,6 @@ function Game() {
     const url = BASE_URL + `/start-game/grid`;
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then(data => {
-        console.log(data)
         setInvalidMove(false);
 
         if (data.updated_grid === "Invalid move. Try again") {
