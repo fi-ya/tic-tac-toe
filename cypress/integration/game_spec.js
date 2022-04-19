@@ -124,16 +124,12 @@ describe('Game', () => {
     cy.get('[name="computer_human"]').click()
     cy.get('h2').should('have.text', 'Player X turn')
     cy.get('p').should('have.text', 'Click on the square you want to place your move')
-    
     playWinningGame()
-
     cy.get('h2').should('have.text', 'Congratulations X won!!!')
     cy.get('.flex-gap > :nth-child(1)').should('have.text', 'Replay')
     cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
     cy.get('.flex-gap > :nth-child(2)').click()
-
   })
-
 })
 
 function playWinningGame(){
@@ -184,80 +180,47 @@ function playWinningGame(){
 
 function playTieGame(){
   cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
-  cy.intercept('PUT', '/start-game/grid', staticResponseOne
-  ).as('putMoveAtOne') 
+  cy.intercept('PUT', '/start-game/grid', staticResponseOne).as('putMoveAtOne') 
   cy.get('.grid-container > :nth-child(1)').click()
   cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
   cy.get('.grid-container > :nth-child(3)').should('have.text', '3')
-  cy.intercept('PUT', '/start-game/grid', {updated_grid : '["X", "2", "O", "4", "5", "6", "7", "8", "9"]',
-  current_player_marker : 'X',
-  game_status : 'Keep playing',
-  winner : 'X'}
-  ).as('putMoveAtTwo') 
+  cy.intercept('PUT', '/start-game/grid', staticTieResponseTwo).as('putMoveAtTwo') 
   cy.get('.grid-container > :nth-child(3)').click()
   cy.get('.grid-container > :nth-child(3)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
-  cy.intercept('PUT', '/start-game/grid', {  updated_grid : '["X", "X", "O", "4", "X", "6", "7", "8", "9"]',
-  current_player_marker : 'O',
-  game_status : 'Keep playing',
-  winner : 'X'}
-  ).as('putMoveAtThree') 
+  cy.intercept('PUT', '/start-game/grid', staticTieResponseThree).as('putMoveAtThree') 
   cy.get('.grid-container > :nth-child(2)').click()
   cy.get('.grid-container > :nth-child(2)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
   cy.get('.grid-container > :nth-child(4)').should('have.text', '4')
-  cy.intercept('PUT', '/start-game/grid', {  updated_grid : '["X", "X", "O", "O", "5", "6", "7", "8", "9"]',
-  current_player_marker : 'X',
-  game_status : 'Keep playing',
-  winner : 'X'}
-  ).as('putMoveAtFour') 
+  cy.intercept('PUT', '/start-game/grid', staticTieResponseFour).as('putMoveAtFour') 
   cy.get('.grid-container > :nth-child(4)').click()
   cy.get('.grid-container > :nth-child(4)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(5)').should('have.text', '5')
-  cy.intercept('PUT', '/start-game/grid', {  updated_grid : '["X", "X", "O", "O", "X", "6", "7", "8", "9"]',
-  current_player_marker : 'O',
-  game_status : 'Keep playing',
-  winner : 'X'}
-  ).as('putMoveAtFive') 
+  cy.intercept('PUT', '/start-game/grid', staticTieResponseFive).as('putMoveAtFive') 
   cy.get('.grid-container > :nth-child(5)').click()
   cy.get('.grid-container > :nth-child(5)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
   cy.get('.grid-container > :nth-child(8)').should('have.text', '8')
-  cy.intercept('PUT', '/start-game/grid', { updated_grid : '["X", "X", "O", "O", "X", "6", "7", "O", "9"]',
-  current_player_marker : 'X',
-  game_status : 'Keep playing',
-  winner : 'X'}
-  ).as('putMoveAtSix') 
+  cy.intercept('PUT', '/start-game/grid', staticTieResponseSix).as('putMoveAtSix') 
   cy.get('.grid-container > :nth-child(8)').click()
   cy.get('.grid-container > :nth-child(8)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(6)').should('have.text', '6')
-  cy.intercept('PUT', '/start-game/grid', {updated_grid : '["X", "X", "O", "O", "X", "X", "7", "O", "9"]',
-  current_player_marker : 'O',
-  game_status : 'Keep playing',
-  winner : 'X'}
-  ).as('putMoveAtSeven') 
+  cy.intercept('PUT', '/start-game/grid', staticTieResponseSeven).as('putMoveAtSeven') 
   cy.get('.grid-container > :nth-child(6)').click()
   cy.get('.grid-container > :nth-child(6)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
   cy.get('.grid-container > :nth-child(9)').should('have.text', '9')
-  cy.intercept('PUT', '/start-game/grid', {updated_grid : '["X", "X", "O", "O", "X", "X", "7", "O", "O"]',
-  current_player_marker : 'X',
-  game_status : 'Keep playing',
-  winner : 'X'}
-  ).as('putMoveAtEight') 
+  cy.intercept('PUT', '/start-game/grid', staticTieResponseEight).as('putMoveAtEight') 
   cy.get('.grid-container > :nth-child(9)').click()
   cy.get('.grid-container > :nth-child(9)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(7)').should('have.text', '7')
-  cy.intercept('PUT', '/start-game/grid', {  updated_grid : '["X", "X", "O", "O", "X", "X", "X", "O", "O"]',
-  current_player_marker : 'O',
-  game_status : 'Tie',
-  winner : 'X'}
-  ).as('putMoveAtNine') 
+  cy.intercept('PUT', '/start-game/grid', staticTieResponseNine).as('putMoveAtNine') 
   cy.get('.grid-container > :nth-child(7)').click()
 }
 
@@ -297,5 +260,60 @@ const invalidStaticResponseTwo ={
   updated_grid : 'Invalid move. Try again',
   current_player_marker : 'O',
   game_status : 'Keep playing',
+  winner : 'X'
+}
+
+const staticTieResponseTwo = {
+  updated_grid : '["X", "2", "O", "4", "5", "6", "7", "8", "9"]',
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+
+const staticTieResponseThree = {  
+  updated_grid : '["X", "X", "O", "4", "X", "6", "7", "8", "9"]',
+  current_player_marker : 'O',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+
+const staticTieResponseFour = {  
+  updated_grid : '["X", "X", "O", "O", "5", "6", "7", "8", "9"]',
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+const staticTieResponseFive = {  
+  updated_grid : '["X", "X", "O", "O", "X", "6", "7", "8", "9"]',
+  current_player_marker : 'O',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+
+const staticTieResponseSix = { 
+  updated_grid : '["X", "X", "O", "O", "X", "6", "7", "O", "9"]',
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+
+const staticTieResponseSeven = {
+  updated_grid : '["X", "X", "O", "O", "X", "X", "7", "O", "9"]',
+  current_player_marker : 'O',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+
+const staticTieResponseEight= {
+  updated_grid : '["X", "X", "O", "O", "X", "X", "7", "O", "O"]',
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+
+const staticTieResponseNine = {  
+  updated_grid : '["X", "X", "O", "O", "X", "X", "X", "O", "O"]',
+  current_player_marker : 'O',
+  game_status : 'Tie',
   winner : 'X'
 }
