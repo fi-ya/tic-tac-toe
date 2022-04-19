@@ -1,6 +1,10 @@
 describe('Game', () => {
-  it('should load the homepage successfully', () => {
+
+  beforeEach(()=>{
     cy.visit('/')
+  })
+
+  it('should load the homepage successfully', () => {
     cy.get('.App-header > h1').should('have.text', 'Let\'s play Tic Tac Toe!')
     cy.get('section > h1').should('have.text', 'Select game mode')
     cy.get('[name="human_human"]').should('have.text', 'Human vs Human')
@@ -8,7 +12,6 @@ describe('Game', () => {
   })
 
  it('should play a human vs human game and quit successfully', () => {
-    cy.visit('/')
     cy.get('[name="human_human"]').click()
     cy.get('h2').should('have.text', 'Player X turn')
     cy.get('p').should('have.text', 'Click on the square you want to place your move')
@@ -38,7 +41,6 @@ describe('Game', () => {
   })
 
   it('should display a error message when invalid move made', ()=>{
-    cy.visit('/')
     cy.get('[name="human_human"]').click()
     cy.get('h2').should('have.text', 'Player X turn')
     cy.get('p').should('have.text', 'Click on the square you want to place your move')
