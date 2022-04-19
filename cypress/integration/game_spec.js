@@ -4,7 +4,6 @@ describe('Game', () => {
     cy.visit('/')
   })
   
-
   it('should load the homepage successfully', () => {
     cy.get('.App-header > h1').should('have.text', 'Let\'s play Tic Tac Toe!')
     cy.get('section > h1').should('have.text', 'Select game mode')
@@ -91,7 +90,7 @@ describe('Game', () => {
     cy.get('.flex-gap > :nth-child(2)').click()
   })
 
-  xit('should display correct message when game tied and be able to quit game successfully', ()=> {
+  it('should display correct message when game tied and be able to quit game successfully', ()=> {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
@@ -104,7 +103,7 @@ describe('Game', () => {
     cy.get('.flex-gap > :nth-child(2)').click()
   })
 
-  xit('should display correct message when game tied and be able to replay game successfully', ()=> {
+  it('should display correct message when game tied and be able to replay game successfully', ()=> {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
@@ -185,38 +184,80 @@ function playWinningGame(){
 
 function playTieGame(){
   cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
+  cy.intercept('PUT', '/start-game/grid', staticResponseOne
+  ).as('putMoveAtOne') 
   cy.get('.grid-container > :nth-child(1)').click()
   cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
   cy.get('.grid-container > :nth-child(3)').should('have.text', '3')
+  cy.intercept('PUT', '/start-game/grid', {updated_grid : '["X", "2", "O", "4", "5", "6", "7", "8", "9"]',
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'}
+  ).as('putMoveAtTwo') 
   cy.get('.grid-container > :nth-child(3)').click()
   cy.get('.grid-container > :nth-child(3)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
+  cy.intercept('PUT', '/start-game/grid', {  updated_grid : '["X", "X", "O", "4", "X", "6", "7", "8", "9"]',
+  current_player_marker : 'O',
+  game_status : 'Keep playing',
+  winner : 'X'}
+  ).as('putMoveAtThree') 
   cy.get('.grid-container > :nth-child(2)').click()
   cy.get('.grid-container > :nth-child(2)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
   cy.get('.grid-container > :nth-child(4)').should('have.text', '4')
+  cy.intercept('PUT', '/start-game/grid', {  updated_grid : '["X", "X", "O", "O", "5", "6", "7", "8", "9"]',
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'}
+  ).as('putMoveAtFour') 
   cy.get('.grid-container > :nth-child(4)').click()
   cy.get('.grid-container > :nth-child(4)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(5)').should('have.text', '5')
+  cy.intercept('PUT', '/start-game/grid', {  updated_grid : '["X", "X", "O", "O", "X", "6", "7", "8", "9"]',
+  current_player_marker : 'O',
+  game_status : 'Keep playing',
+  winner : 'X'}
+  ).as('putMoveAtFive') 
   cy.get('.grid-container > :nth-child(5)').click()
   cy.get('.grid-container > :nth-child(5)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
   cy.get('.grid-container > :nth-child(8)').should('have.text', '8')
+  cy.intercept('PUT', '/start-game/grid', { updated_grid : '["X", "X", "O", "O", "X", "6", "7", "O", "9"]',
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'}
+  ).as('putMoveAtSix') 
   cy.get('.grid-container > :nth-child(8)').click()
   cy.get('.grid-container > :nth-child(8)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(6)').should('have.text', '6')
+  cy.intercept('PUT', '/start-game/grid', {updated_grid : '["X", "X", "O", "O", "X", "X", "7", "O", "9"]',
+  current_player_marker : 'O',
+  game_status : 'Keep playing',
+  winner : 'X'}
+  ).as('putMoveAtSeven') 
   cy.get('.grid-container > :nth-child(6)').click()
   cy.get('.grid-container > :nth-child(6)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
   cy.get('.grid-container > :nth-child(9)').should('have.text', '9')
+  cy.intercept('PUT', '/start-game/grid', {updated_grid : '["X", "X", "O", "O", "X", "X", "7", "O", "O"]',
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'}
+  ).as('putMoveAtEight') 
   cy.get('.grid-container > :nth-child(9)').click()
   cy.get('.grid-container > :nth-child(9)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(7)').should('have.text', '7')
+  cy.intercept('PUT', '/start-game/grid', {  updated_grid : '["X", "X", "O", "O", "X", "X", "X", "O", "O"]',
+  current_player_marker : 'O',
+  game_status : 'Tie',
+  winner : 'X'}
+  ).as('putMoveAtNine') 
   cy.get('.grid-container > :nth-child(7)').click()
 }
 
