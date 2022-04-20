@@ -36,16 +36,17 @@ You may also see some lint errors in the console.
 Run following command in terminal to run test suite 
 #### `npm test`
 Launches the test runner in the interactive watch mode.\
-
-Run following command in terminal to view test coverage
-#### `npm run test:coverage`
+#### `npm run jest:coverage`
+Runs jest unit test coverage
 #### `open coverage/lcov-report/index.html`
 Launches in a browser showing test coverage of each file.\
 
-### `npm run cy:open`
+### `npm run test:e2e`
 Launches a cypress test runner
 
-### `npm run coverage:report`
+### `npm run test:e2e:ci`
+Runs Cypress from the command line
+### `npm run cypress:coverage`
 Shows a summary of the code coverage after cypress tests have run
 
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.

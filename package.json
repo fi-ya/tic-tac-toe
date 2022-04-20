@@ -2,6 +2,7 @@
   "name": "tic-tac-toe",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://myname.github.io/myapp",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
@@ -14,13 +15,17 @@
   },
   "scripts": {
     "start": "react-scripts -r @cypress/instrument-cra start",
-    "build": "react-scripts build",
+    "build": "export CI= && react-scripts build",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "lint": "eslint src/*.js src/**/*.js ",
-    "test:coverage": "CI=true npm test -- --env=jsdom --coverage",
-    "cy:open": "npx cypress open",
-    "coverage:report": "npx nyc report --reporter=text-summary"
+    "lint:fix": "eslint --fix ./src",
+    "format:check": "prettier --check ./src",
+    "format:fix": "prettier --write ./src",
+    "jest:coverage": "npm test -- --env=jsdom --coverage",
+    "test:e2e": "cypress open",
+    "test:e2e:ci": "cypress run",
+    "cypress:coverage": "npx nyc report --reporter=text-summary"
   },
   "eslintConfig": {
     "extends": [
@@ -41,12 +46,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
     "@cypress/code-coverage": "^3.9.12",
     "@cypress/instrument-cra": "^1.4.0",
     "babel-plugin-istanbul": "^6.1.1",
     "cypress": "^9.5.4",
     "istanbul-lib-coverage": "^3.2.0",
     "msw": "^0.39.2",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "prettier": "2.6.2"
   }
 }
