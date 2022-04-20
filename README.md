@@ -42,6 +42,12 @@ Run following command in terminal to view test coverage
 #### `open coverage/lcov-report/index.html`
 Launches in a browser showing test coverage of each file.\
 
+### `npm run cy:open`
+Launches a cypress test runner
+
+### `npm run coverage:report`
+Shows a summary of the code coverage after cypress tests have run
+
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 #### `npm run build`
