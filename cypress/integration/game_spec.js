@@ -23,8 +23,7 @@ describe('Game', () => {
     cy.get('p').should('have.text', 'Click on the square you want to place your move')
     cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
 
-    cy.intercept('PUT', '/start-game/grid', staticResponseOne
-    ).as('putMoveAtOne') 
+    cy.intercept('PUT', '/start-game/grid', staticResponseOne).as('putMoveAtOne') 
 
     cy.get('.grid-container > :nth-child(1)').click()
     cy.wait('@putMoveAtOne')
@@ -32,8 +31,7 @@ describe('Game', () => {
     cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
     cy.get('h2').should('have.text', 'Player O turn') 
     
-    cy.intercept('PUT', '/start-game/grid', invalidStaticResponseTwo
-    ).as('putMoveAtTwo') 
+    cy.intercept('PUT', '/start-game/grid', invalidStaticResponseTwo).as('putMoveAtTwo') 
 
     cy.get('.grid-container > :nth-child(1)').click()
     cy.wait('@putMoveAtTwo')
@@ -41,8 +39,7 @@ describe('Game', () => {
     cy.get('.padding-sm').should('have.text', 'Invalid move. Try again!')
     cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
     
-    cy.intercept('PUT', '/start-game/grid', staticResponseTwo
-    ).as('putMoveAtTwo') 
+    cy.intercept('PUT', '/start-game/grid', staticResponseTwo).as('putMoveAtTwo') 
 
     cy.get('.grid-container > :nth-child(2)').click()
     cy.wait('@putMoveAtTwo')
@@ -88,6 +85,7 @@ describe('Game', () => {
     cy.get('.flex-gap > :nth-child(1)').should('have.text', 'Replay')
     cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
     cy.get('.flex-gap > :nth-child(2)').click()
+    cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
   })
 
   it('should display correct message when game tied and be able to quit game successfully', ()=> {
@@ -101,6 +99,7 @@ describe('Game', () => {
     cy.get('.flex-gap > :nth-child(1)').should('have.text', 'Replay')
     cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
     cy.get('.flex-gap > :nth-child(2)').click()
+    cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
   })
 
   it('should display correct message when game tied and be able to replay game successfully', ()=> {
@@ -129,33 +128,30 @@ describe('Game', () => {
     cy.get('.flex-gap > :nth-child(1)').should('have.text', 'Replay')
     cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
     cy.get('.flex-gap > :nth-child(2)').click()
+    cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
   })
 })
 
 function playWinningGame(){
   cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
 
-  cy.intercept('PUT', '/start-game/grid', staticResponseOne
-  ).as('putMoveAtOne') 
+  cy.intercept('PUT', '/start-game/grid', staticResponseOne).as('putMoveAtOne') 
 
   cy.get('.grid-container > :nth-child(1)').click()
   cy.wait('@putMoveAtOne')
-  
   cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn') 
   cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
 
-  cy.intercept('PUT', '/start-game/grid', staticResponseTwo
-  ).as('putMoveAtTwo') 
+  cy.intercept('PUT', '/start-game/grid', staticResponseTwo).as('putMoveAtTwo') 
+
   cy.get('.grid-container > :nth-child(2)').click()
   cy.wait('@putMoveAtTwo')
-
   cy.get('.grid-container > :nth-child(2)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(5)').should('have.text', '5')
 
-  cy.intercept('PUT', '/start-game/grid', staticResponseThree
-  ).as('putMoveAtThree') 
+  cy.intercept('PUT', '/start-game/grid', staticResponseThree).as('putMoveAtThree') 
 
   cy.get('.grid-container > :nth-child(5)').click()
   cy.wait('@putMoveAtThree')
@@ -163,8 +159,7 @@ function playWinningGame(){
   cy.get('h2').should('have.text', 'Player O turn')
   cy.get('.grid-container > :nth-child(6)').should('have.text', '6')
 
-  cy.intercept('PUT', '/start-game/grid', staticResponseFour
-  ).as('putMoveAtFour') 
+  cy.intercept('PUT', '/start-game/grid', staticResponseFour).as('putMoveAtFour') 
 
   cy.get('.grid-container > :nth-child(6)').click()
   cy.wait('@putMoveAtFour')
@@ -172,8 +167,8 @@ function playWinningGame(){
   cy.get('h2').should('have.text', 'Player X turn')
   cy.get('.grid-container > :nth-child(9)').should('have.text', '9')
 
-  cy.intercept('PUT', '/start-game/grid', staticResponseFive
-  ).as('putMoveAtFive') 
+  cy.intercept('PUT', '/start-game/grid', staticResponseFive).as('putMoveAtFive') 
+
   cy.get('.grid-container > :nth-child(9)').click()
   cy.wait('@putMoveAtFive')
 }
