@@ -116,19 +116,39 @@ describe('Game', () => {
     cy.get('section > h1').should('have.text', 'Select game mode')
   })
 
-  xit('should play computer vs human game and exit successfully', ()=>{
+  it('should play computer vs human game and exit successfully', ()=>{
  
     cy.intercept('GET', '/start-game/2', { fixture: 'computer_human_game' }).as('getComputerVsHumanGame') 
-    
+    cy.intercept('PUT', '/start-game/computer_move', staticComputerResponseOne).as('putCompMoveAtOne')
+
     cy.get('[name="computer_human"]').click()
     cy.get('h2').should('have.text', 'Player X turn')
     cy.get('p').should('have.text', 'Click on the square you want to place your move')
     // playWinningComputerVsHumanGame()
-    cy.get('h2').should('have.text', 'Congratulations X won!!!')
-    cy.get('.flex-gap > :nth-child(1)').should('have.text', 'Replay')
-    cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
-    cy.get('.flex-gap > :nth-child(2)').click()
-    cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
+    cy.get('.padding-sm').should('have.text', 'Computer thinking...')
+
+    cy.wait('@putCompMoveAtOne')
+    cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
+    cy.get('h2').should('have.text', 'Player O turn') 
+    cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
+
+    cy.intercept('PUT', '/start-game/grid', staticHumanResponseOne).as('putHumanMoveAtTwo') 
+
+    cy.get('.grid-container > :nth-child(2)').click()
+    cy.wait('@putHumanMoveAtTwo')
+    
+    cy.get('.grid-container > :nth-child(2)').should('have.text', 'O')
+    cy.get('.padding-sm').should('have.text', 'Computer thinking...')
+    
+    cy.intercept('PUT', '/start-game/grid', staticComputerResponseTwo).as('putCompMoveAtThree')
+    cy.get('h2').should('have.text', 'Player X turn')
+    
+
+    // cy.get('h2').should('have.text', 'Congratulations X won!!!')
+    // cy.get('.flex-gap > :nth-child(1)').should('have.text', 'Replay')
+    // cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
+    // cy.get('.flex-gap > :nth-child(2)').click()
+    // cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
   })
 })
 
@@ -221,6 +241,7 @@ function playHumanVsHumanTieGame(){
 
 const staticResponseOne ={
   updated_grid : '["X", "2", "3", "4", "5", "6", "7", "8", "9"]',
+  current_player_name: "Human",
   current_player_marker : 'O',
   game_status : 'Keep playing',
   winner : 'X'
@@ -228,6 +249,7 @@ const staticResponseOne ={
 
 const staticResponseTwo ={
   updated_grid : '["X", "O", "3", "4", "5", "6", "7", "8", "9"]',
+  current_player_name: "Human",
   current_player_marker : 'X',
   game_status : 'Keep playing',
   winner : 'X'
@@ -310,5 +332,28 @@ const staticTieResponseNine = {
   updated_grid : '["X", "X", "O", "O", "X", "X", "X", "O", "O"]',
   current_player_marker : 'O',
   game_status : 'Tie',
+  winner : 'X'
+}
+
+const staticComputerResponseOne ={
+  updated_grid : '["X", "2", "3", "4", "5", "6", "7", "8", "9"]',
+  current_player_name: "Human",
+  current_player_marker : 'O',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+
+const staticHumanResponseOne ={
+  updated_grid : '["X", "O", "3", "4", "5", "6", "7", "8", "9"]',
+  current_player_name: "Computer",
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+const staticComputerResponseTwo ={
+  updated_grid : '["X", "O", "3", "4", "5", "6", "7", "8", "9"]',
+  current_player_name: "Human",
+  current_player_marker : 'O',
+  game_status : 'Keep playing',
   winner : 'X'
 }
