@@ -36,15 +36,15 @@ export const updateGameData = async (
     )
 }
 
-export const fetchComputerMove = async (url, gridData, currentPlayerMarker) => {
-  console.log('FETC comp', url, gridData, currentPlayerMarker )
+export const fetchComputerMove = async (url, grid, currentPlayerMarker) => {
+  console.log('FETC comp', url, grid, currentPlayerMarker )
   return await fetch (url, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json',
       'Access-Control-Allow-Origin': 'http://localhost:4567',
     },
-    body: JSON.stringify([gridData, currentPlayerMarker]),
+    body: JSON.stringify([grid, currentPlayerMarker]),
   })
   .then((response) => {
     console.log('FETC comp RESPONSE', response )

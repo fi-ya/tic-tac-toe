@@ -37,10 +37,10 @@ function Game() {
       )
   }
 
-  async function getComputerMove(gridData, currentPlayerMarker){
+  async function getComputerMove(grid, currentPlayerMarker){
     const url = BASE_URL + `/start-game/computer_move`
 
-    return await fetchComputerMove(url,gridData, currentPlayerMarker)
+    return await fetchComputerMove(url,grid, currentPlayerMarker)
       .then((data) => { 
         console.log('computer move data', data)
 
@@ -63,7 +63,7 @@ function Game() {
         } else {
 
           handleUpdateGame(data.updated_grid, data.current_player_marker, data.game_status, data.current_player_name, data.winner )
-   
+       
           handleComputerMove(data.current_player_name, data.updated_grid, data.current_player_marker ) 
      
         }
@@ -73,24 +73,24 @@ function Game() {
       )
   }
 
-  const handleUpdateGame = (updated_grid, current_player_marker, game_status, current_player_name,winner )=>{
-    let updatedGridArray = JSON.parse(updated_grid)
+  const handleUpdateGame = (updatedGrid, currentPlayerMarker, gameStatus, currentPlayerName,winner )=>{
+    let updatedGridArray = JSON.parse(updatedGrid)
     setGridData(updatedGridArray)
-    setCurrentPlayerMarker(current_player_marker)
-    setGameStatus(game_status)
-    setCurrentPlayer(current_player_name)
+    setCurrentPlayerMarker(currentPlayerMarker)
+    setGameStatus(gameStatus)
+    setCurrentPlayer(currentPlayerName)
 
-    handleWinningGame(game_status,winner)
+    handleWinningGame(gameStatus,winner)
   }
 
-  const handleComputerMove = (current_player_name,updated_grid, current_player_marker ) => {
-    if (current_player_name == 'Computer') {
-      getComputerMove(updated_grid, current_player_marker)
+  const handleComputerMove = (currentPlayerName, grid, currentPlayerMarker ) => {
+    if (currentPlayerName == 'Computer') {
+      getComputerMove(grid, currentPlayerMarker)
     }
   }
 
-  const handleWinningGame = (game_status, winner)=>{
-    if (game_status === 'Won') {
+  const handleWinningGame = (gameStatus, winner)=>{
+    if (gameStatus === 'Won') {
       setWinner(winner)
       setCurrentPlayer('')
     }
