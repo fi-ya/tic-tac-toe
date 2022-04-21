@@ -9,7 +9,7 @@ import { fetchNewGame, updateGameData } from '../fetch'
 function Game() {
   const [game, setNewGame] = useState(false)
   const [gridData, setGridData] = useState([])
-  const [currentPlayer, setCurrentPlayer] = useState('X')
+  const [currentPlayer, setCurrentPlayer] = useState('')
   const [currentPlayerMarker, setCurrentPlayerMarker] = useState('')
   const [gameStatus, setGameStatus] = useState('Keep playing')
   const [winner, setWinner] = useState('')
@@ -38,6 +38,7 @@ function Game() {
     const url = BASE_URL + `/start-game/grid`
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then((data) => {
+        console.log(data, "putttt")
         setInvalidMove(false)
 
         if (data.updated_grid === 'Invalid move. Try again') {
@@ -47,6 +48,7 @@ function Game() {
           setGridData(updatedGridArray)
           setCurrentPlayerMarker(data.current_player_marker)
           setGameStatus(data.game_status)
+          setCurrentPlayer(data.current_player_name)
 
           if (data.game_status === 'Won') {
             setWinner(data.winner)
@@ -108,10 +110,15 @@ function Game() {
         </section>
       )}
       {invalidMove ? (
-        <div className="error-msg">
+        <div className="alert-msg red-bkgd">
           <h1 className="padding-sm">Invalid move. Try again!</h1>
         </div>
       ) : null}
+      {currentPlayer == 'Computer' ? (
+        <div className="alert-msg blue-bkgd">
+        <h1 className="padding-sm">Computer thinking...</h1>
+      </div>
+      ) : null }
     </main>
   )
 }
