@@ -44,16 +44,10 @@ function Game() {
       .then((data) => { 
         console.log('computer move data', data)
 
-        let updatedGridArray = JSON.parse(data.updated_grid)
-        setGridData(updatedGridArray)
-        setCurrentPlayerMarker(data.current_player_marker)
-        setGameStatus(data.game_status)
-        setCurrentPlayer(data.current_player_name)
-
-        handleWinningGame(data.game_status,data.winner)
+        handleUpdateGame(data.updated_grid, data.current_player_marker, data.game_status, data.current_player_name, data.winner )
         
       })
-      .catch((error) => console.error('Error gettiung data for getComputerMove:', error))
+      .catch((error) => console.error('Error getting data for getComputerMove:', error))
     }
 
   async function addPlayerMarker(gridData, currentPlayerMarker, playerMove) {
@@ -67,13 +61,9 @@ function Game() {
           setInvalidMove(true)
 
         } else {
-          let updatedGridArray = JSON.parse(data.updated_grid)
-          setGridData(updatedGridArray)
-          setCurrentPlayerMarker(data.current_player_marker)
-          setGameStatus(data.game_status)
-          setCurrentPlayer(data.current_player_name)
 
-          handleWinningGame(data.game_status,data.winner)
+          handleUpdateGame(data.updated_grid, data.current_player_marker, data.game_status, data.current_player_name, data.winner )
+   
           handleComputerMove(data.current_player_name, data.updated_grid, data.current_player_marker ) 
      
         }
@@ -81,6 +71,16 @@ function Game() {
       .catch((error) =>
         console.error('Error getting data for addPlayerMarker:', error),
       )
+  }
+
+  const handleUpdateGame = (updated_grid, current_player_marker, game_status, current_player_name,winner )=>{
+    let updatedGridArray = JSON.parse(updated_grid)
+    setGridData(updatedGridArray)
+    setCurrentPlayerMarker(current_player_marker)
+    setGameStatus(game_status)
+    setCurrentPlayer(current_player_name)
+
+    handleWinningGame(game_status,winner)
   }
 
   const handleComputerMove = (current_player_name,updated_grid, current_player_marker ) => {
