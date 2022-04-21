@@ -4,7 +4,7 @@ import Board from './Board'
 import ReplayOrExit from './ReplayOrExit'
 import GameMode from './GameMode'
 import BASE_URL from '../config'
-import { fetchNewGame, updateGameData } from '../fetch'
+import { fetchNewGame, updateGameData, fetchComputerMove } from '../fetch'
 
 function Game() {
   const [game, setNewGame] = useState(false)
@@ -28,11 +28,33 @@ function Game() {
         setNewGame(true)
         setCurrentPlayerMarker(data.player1_marker)
         setGridData(gridArray)
+
+        handleComputerMove(data.player1_name, data.new_grid, data.player1_marker ) 
+
       })
       .catch((error) =>
         console.error('Error getting data for startGame:', error),
       )
   }
+
+  async function getComputerMove(gridData, currentPlayerMarker){
+    const url = BASE_URL + `/start-game/computer_move`
+
+    return await fetchComputerMove(url,gridData, currentPlayerMarker)
+      .then((data) => { 
+        console.log('computer move data', data)
+
+        let updatedGridArray = JSON.parse(data.updated_grid)
+        setGridData(updatedGridArray)
+        setCurrentPlayerMarker(data.current_player_marker)
+        setGameStatus(data.game_status)
+        setCurrentPlayer(data.current_player_name)
+
+        handleWinningGame(data.game_status,data.winner)
+        
+      })
+      .catch((error) => console.error('Error gettiung data for getComputerMove:', error))
+    }
 
   async function addPlayerMarker(gridData, currentPlayerMarker, playerMove) {
     const url = BASE_URL + `/start-game/grid`
@@ -43,6 +65,7 @@ function Game() {
 
         if (data.updated_grid === 'Invalid move. Try again') {
           setInvalidMove(true)
+
         } else {
           let updatedGridArray = JSON.parse(data.updated_grid)
           setGridData(updatedGridArray)
@@ -50,14 +73,27 @@ function Game() {
           setGameStatus(data.game_status)
           setCurrentPlayer(data.current_player_name)
 
-          if (data.game_status === 'Won') {
-            setWinner(data.winner)
-          }
+          handleWinningGame(data.game_status,data.winner)
+          handleComputerMove(data.current_player_name, data.updated_grid, data.current_player_marker ) 
+     
         }
       })
       .catch((error) =>
         console.error('Error getting data for addPlayerMarker:', error),
       )
+  }
+
+  const handleComputerMove = (current_player_name,updated_grid, current_player_marker ) => {
+    if (current_player_name == 'Computer') {
+      getComputerMove(updated_grid, current_player_marker)
+    }
+  }
+
+  const handleWinningGame = (game_status, winner)=>{
+    if (game_status === 'Won') {
+      setWinner(winner)
+      setCurrentPlayer('')
+    }
   }
 
   const handleGameExit = () => {
@@ -68,6 +104,7 @@ function Game() {
     setGameMode(null)
     setNewGame(true)
     setGameStatus('Keep playing')
+    setCurrentPlayer('')
   }
 
   return (
