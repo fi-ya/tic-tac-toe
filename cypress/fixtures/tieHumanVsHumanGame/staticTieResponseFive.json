@@ -1,0 +1,6 @@
+{
+  "updated_grid":"[\"X\", \"X\", \"O\", \"O\", \"X\", \"6\", \"7\", \"8\", \"9\"]",
+  "current_player_marker":"O",
+  "game_status":"Keep playing",
+  "winner":"X"
+}

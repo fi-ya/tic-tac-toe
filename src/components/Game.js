@@ -56,6 +56,7 @@ function Game() {
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then((data) => {
         console.log(data, "putttt")
+        // console.log('computer move data', typeof(data))
         setInvalidMove(false)
 
         if (data.updated_grid === 'Invalid move. Try again') {
