@@ -37,7 +37,6 @@ export const updateGameData = async (
 }
 
 export const fetchComputerMove = async (url, grid, currentPlayerMarker) => {
-  console.log('FETC comp', url, grid, currentPlayerMarker)
   return await fetch(url, {
     method: 'PUT',
     headers: {
@@ -47,7 +46,6 @@ export const fetchComputerMove = async (url, grid, currentPlayerMarker) => {
     body: JSON.stringify([grid, currentPlayerMarker]),
   })
     .then((response) => {
-      console.log('FETC comp RESPONSE', response)
       if (!response.ok) throw new Error(response.status)
       return response.json()
     })
