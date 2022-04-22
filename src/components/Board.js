@@ -10,7 +10,11 @@ function Board({ gridData, currentPlayerMarker, addPlayerMarker }) {
   return (
     <section className="board-container">
       <div className="grid-container">
-        {gridData.map((item, i ) => <button key= {i} className="grid-item" onClick={setPlayerMarker}>{item}</button>)}
+        {gridData.map((item, i) => (
+          <button key={i} className="grid-item" onClick={setPlayerMarker}>
+            {item}
+          </button>
+        ))}
       </div>
     </section>
   )

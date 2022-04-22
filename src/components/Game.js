@@ -29,24 +29,36 @@ function Game() {
         setCurrentPlayerMarker(data.player1_marker)
         setGridData(gridArray)
         setTimeout(() => {
-          handleComputerMove(data.player1_name, data.new_grid, data.player1_marker ) 
-        }, 1000);
+          handleComputerMove(
+            data.player1_name,
+            data.new_grid,
+            data.player1_marker,
+          )
+        }, 1000)
       })
       .catch((error) =>
         console.error('Error getting data for startGame:', error),
       )
   }
 
-  async function getComputerMove(grid, currentPlayerMarker){
+  async function getComputerMove(grid, currentPlayerMarker) {
     const url = BASE_URL + `/start-game/computer_move`
 
-    return await fetchComputerMove(url,grid, currentPlayerMarker)
-      .then((data) => { 
+    return await fetchComputerMove(url, grid, currentPlayerMarker)
+      .then((data) => {
         setTimeout(() => {
-          handleUpdateGame(data.updated_grid, data.current_player_marker, data.game_status, data.current_player_name, data.winner)
-        }, 1000);
+          handleUpdateGame(
+            data.updated_grid,
+            data.current_player_marker,
+            data.game_status,
+            data.current_player_name,
+            data.winner,
+          )
+        }, 1000)
       })
-      .catch((error) => console.error('Error getting data for getComputerMove:', error))
+      .catch((error) =>
+        console.error('Error getting data for getComputerMove:', error),
+      )
   }
 
   async function addPlayerMarker(gridData, currentPlayerMarker, playerMove) {
@@ -59,8 +71,18 @@ function Game() {
         if (data.updated_grid === 'Invalid move. Try again') {
           setInvalidMove(true)
         } else {
-          handleUpdateGame(data.updated_grid, data.current_player_marker, data.game_status, data.current_player_name, data.winner )
-          handleComputerMove(data.current_player_name, data.updated_grid, data.current_player_marker ) 
+          handleUpdateGame(
+            data.updated_grid,
+            data.current_player_marker,
+            data.game_status,
+            data.current_player_name,
+            data.winner,
+          )
+          handleComputerMove(
+            data.current_player_name,
+            data.updated_grid,
+            data.current_player_marker,
+          )
         }
       })
       .catch((error) =>
@@ -68,28 +90,34 @@ function Game() {
       )
   }
 
-  const handleUpdateGame = (updatedGrid, currentPlayerMarker, gameStatus, currentPlayerName,winner )=>{
+  const handleUpdateGame = (
+    updatedGrid,
+    currentPlayerMarker,
+    gameStatus,
+    currentPlayerName,
+    winner,
+  ) => {
     let updatedGridArray = JSON.parse(updatedGrid)
     setGridData(updatedGridArray)
     setCurrentPlayerMarker(currentPlayerMarker)
     setTimeout(() => {
       setGameStatus(gameStatus)
-    }, 1000);
+    }, 1000)
     setCurrentPlayer(currentPlayerName)
 
-    handleWinningGame(gameStatus,winner)
+    handleWinningGame(gameStatus, winner)
   }
 
-  const handleComputerMove = (currentPlayerName, grid, currentPlayerMarker ) => {
+  const handleComputerMove = (currentPlayerName, grid, currentPlayerMarker) => {
     if (currentPlayerName === 'Computer') {
       getComputerMove(grid, currentPlayerMarker)
     }
   }
 
-  const handleWinningGame = (gameStatus, winner)=>{
+  const handleWinningGame = (gameStatus, winner) => {
     if (gameStatus === 'Won') {
       setWinner(winner)
-      setCurrentPlayer('')      
+      setCurrentPlayer('')
     }
   }
 
@@ -150,9 +178,9 @@ function Game() {
       ) : null}
       {currentPlayer === 'Computer' ? (
         <div className="alert-msg blue-bkgd">
-        <h1 className="padding-sm">Computer thinking...</h1>
-      </div>
-      ) : null }
+          <h1 className="padding-sm">Computer thinking...</h1>
+        </div>
+      ) : null}
     </main>
   )
 }

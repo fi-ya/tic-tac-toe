@@ -193,7 +193,7 @@ async function playHumanVsHumanWinningGame() {
   userEvent.click(buttonElementNine)
 
   await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
-  
+
   expect(buttonElementNine.textContent).not.toBe('9')
   expect(buttonElementNine.textContent).toBe('X')
 
@@ -213,9 +213,7 @@ async function playTieGame() {
   const lastPlayButtonElement = screen.getByRole('button', { name: /9/i })
   await mockApiPutRequest(mockTieGameDataResponse)
   userEvent.click(lastPlayButtonElement)
-  await waitFor(() =>
-    screen.getByRole('heading', { name: /player o turn/i }),
-  )
+  await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
 
   await waitFor(() =>
     screen.getByRole('heading', { name: /game over!! it's a tie!!!/i }),
