@@ -42,10 +42,9 @@ function Game() {
 
     return await fetchComputerMove(url,grid, currentPlayerMarker)
       .then((data) => { 
-        console.log('computer move data', data)
         setTimeout(() => {
           handleUpdateGame(data.updated_grid, data.current_player_marker, data.game_status, data.current_player_name, data.winner)
-        }, 2000);
+        }, 1000);
       })
       .catch((error) => console.error('Error getting data for getComputerMove:', error))
   }
@@ -55,8 +54,6 @@ function Game() {
 
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then((data) => {
-        console.log(data, "putttt")
-        // console.log('computer move data', typeof(data))
         setInvalidMove(false)
 
         if (data.updated_grid === 'Invalid move. Try again') {
@@ -92,7 +89,7 @@ function Game() {
   const handleWinningGame = (gameStatus, winner)=>{
     if (gameStatus === 'Won') {
       setWinner(winner)
-      setCurrentPlayer('')
+      setCurrentPlayer('')      
     }
   }
 

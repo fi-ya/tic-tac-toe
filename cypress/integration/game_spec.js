@@ -65,7 +65,7 @@ describe('Game', () => {
     cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!')    
   })
 
-  it('should play computer vs human game and exit successfully', ()=>{
+  it('should play computer vs human game and quit successfully', ()=>{
  
     cy.intercept('GET', '/start-game/2', { fixture: 'computer_human_game' }).as('getComputerVsHumanGame')
     
@@ -78,7 +78,7 @@ describe('Game', () => {
     cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
   })
 
-  it('should play a human vs human game and replay a new computer vs human game and quit successfully', () => {
+  it('should play a human vs human game and replay a new computer vs human game and replay successfully', () => {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
@@ -96,8 +96,8 @@ describe('Game', () => {
     cy.get('h2').should('have.text', 'Congratulations X won!!!')
     cy.get('.flex-gap > :nth-child(1)').should('have.text', 'Replay')
     cy.get('.flex-gap > :nth-child(2)').should('have.text', 'Quit')
-    cy.get('.flex-gap > :nth-child(2)').click()
-    cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
+    cy.get('.flex-gap > :nth-child(1)').click()
+    cy.get('.game-mode-container > :nth-child(3)').should('have.text', 'Select game mode')
   })
 
   it('should display correct message when game tied and be able to quit game successfully', ()=> {
@@ -128,7 +128,6 @@ describe('Game', () => {
     cy.get('.game-mode-container > :nth-child(3)').should('have.text', 'Select game mode')
   })
 
- 
 })
 
 function playWinningHumanVsHumanGame(){
