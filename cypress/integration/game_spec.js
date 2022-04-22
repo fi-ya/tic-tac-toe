@@ -6,7 +6,9 @@ describe('Game', () => {
   
   it('should load the homepage successfully', () => {
     cy.get('.App-header > h1').should('have.text', 'Let\'s play Tic Tac Toe!')
-    cy.get('section > h1').should('have.text', 'Select game mode')
+    cy.get('.game-mode-container > :nth-child(1)').should('have.text', 'How to play')
+    cy.get('p').should('have.text', 'First pick who you would like to play against, another human or a computer. Each player take turns in placing their marker on the board with `X` playing first. The first player to get 3 of their marks in a row (up, down, across, or diagonally) is the winner. When all 9 squares are full, the game is over. If no player has 3 marks in a row, the game ends in a tie.')
+    cy.get('.game-mode-container > :nth-child(3)').should('have.text', 'Select game mode')
     cy.get('[name="human_human"]').should('have.text', 'Human vs Human')
     cy.get('[name="computer_human"]').should('have.text', 'Computer vs Human')
     cy.get('#game-mode-options>button').its('length').should('be.eq', 2)
@@ -139,7 +141,7 @@ describe('Game', () => {
     
     cy.get('.grid-container > :nth-child(2)').should('have.text', 'O')
     cy.get('.padding-sm').should('have.text', 'Computer thinking...')
-    
+
     cy.intercept('PUT', '/start-game/grid', staticComputerResponseTwo).as('putCompMoveAtThree')
     cy.get('h2').should('have.text', 'Player X turn')
     
