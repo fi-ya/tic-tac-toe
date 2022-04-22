@@ -51,7 +51,7 @@ describe('Game', () => {
     cy.get('.App').should('not.contain', '.padding-sm')
   })
 
-  it('should play a human vs human game and quit successfully', () => {
+  xit('should play a human vs human game and quit successfully', () => {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
@@ -90,7 +90,7 @@ describe('Game', () => {
     cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
   })
 
-  it('should display correct message when game tied and be able to quit game successfully', ()=> {
+  xit('should display correct message when game tied and be able to quit game successfully', ()=> {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
@@ -104,7 +104,7 @@ describe('Game', () => {
     cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
   })
 
-  it('should display correct message when game tied and be able to replay game successfully', ()=> {
+  xit('should display correct message when game tied and be able to replay game successfully', ()=> {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
@@ -120,30 +120,67 @@ describe('Game', () => {
 
   it('should play computer vs human game and exit successfully', ()=>{
  
-    cy.intercept('GET', '/start-game/2', { fixture: 'computer_human_game' }).as('getComputerVsHumanGame') 
+    cy.intercept('GET', '/start-game/2', { fixture: 'computer_human_game' }).as('getComputerVsHumanGame')
+    
+    // playWinningComputerVsHumanGame()
     cy.intercept('PUT', '/start-game/computer_move', staticComputerResponseOne).as('putCompMoveAtOne')
 
     cy.get('[name="computer_human"]').click()
     cy.get('h2').should('have.text', 'Player X turn')
     cy.get('p').should('have.text', 'Click on the square you want to place your move')
-    // playWinningComputerVsHumanGame()
+    
     cy.get('.padding-sm').should('have.text', 'Computer thinking...')
-
     cy.wait('@putCompMoveAtOne')
     cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
     cy.get('h2').should('have.text', 'Player O turn') 
+    cy.get('.grid-container > :nth-child(4)').should('have.text', '4')
+
+    cy.intercept('PUT', '/start-game/grid', staticHumanResponseOne).as('putHumanMoveAtFour') 
+
+    cy.get('.grid-container > :nth-child(4)').click()
+    cy.wait('@putHumanMoveAtFour')
+    cy.get('.grid-container > :nth-child(4)').should('have.text', 'O')
+
+    cy.intercept('PUT', '/start-game/grid', staticComputerResponseTwo).as('putCompMoveAtTwo')
+
     cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
-
-    cy.intercept('PUT', '/start-game/grid', staticHumanResponseOne).as('putHumanMoveAtTwo') 
-
-    cy.get('.grid-container > :nth-child(2)').click()
-    cy.wait('@putHumanMoveAtTwo')
-    
-    cy.get('.grid-container > :nth-child(2)').should('have.text', 'O')
     cy.get('.padding-sm').should('have.text', 'Computer thinking...')
+    cy.wait('@putCompMoveAtTwo')
+    cy.get('.grid-container > :nth-child(2)').should('have.text', 'X')
+    cy.get('h2').should('have.text', 'Player O turn')
+    cy.get('.grid-container > :nth-child(5)').should('have.text', '5')
 
-    cy.intercept('PUT', '/start-game/grid', staticComputerResponseTwo).as('putCompMoveAtThree')
-    cy.get('h2').should('have.text', 'Player X turn')
+    cy.intercept('PUT', '/start-game/grid', staticHumanResponseTwo).as('putHumanMoveAtFive') 
+    
+    cy.get('.grid-container > :nth-child(5)').click()
+    cy.wait('@putHumanMoveAtFive')
+    cy.get('.grid-container > :nth-child(5)').should('have.text', 'O')
+
+    cy.intercept('PUT', '/start-game/grid', staticComputerResponseThree).as('putCompMoveAtThree')
+
+    cy.get('.grid-container > :nth-child(3)').should('have.text', '3')
+    cy.get('.padding-sm').should('have.text', 'Computer thinking...')
+    cy.wait('@putCompMoveAtThree')
+    cy.get('.grid-container > :nth-child(3)').should('have.text', 'X')
+    cy.get('h2').should('have.text', 'Player O turn')
+   
+    
+
+    // cy.get('h2').should('have.text', 'Player O turn')
+    // cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
+
+    // cy.intercept('PUT', '/start-game/grid', staticHumanResponseOne).as('putHumanMoveAtTwo') 
+
+    
+    // cy.get('.grid-container > :nth-child(2)').should('have.text', 'O')
+    // cy.get('.padding-sm').should('have.text', 'Computer thinking...')
+
+    // cy.intercept('PUT', '/start-game/grid', staticComputerResponseTwo).as('putCompMoveAtThree')
+    // cy.get('h2').should('have.text', 'Player X turn')
+
+
+
+
     
 
     // cy.get('h2').should('have.text', 'Congratulations X won!!!')
@@ -346,16 +383,30 @@ const staticComputerResponseOne ={
 }
 
 const staticHumanResponseOne ={
-  updated_grid : '["X", "O", "3", "4", "5", "6", "7", "8", "9"]',
+  updated_grid : '["X", "2", "3", "O", "5", "6", "7", "8", "9"]',
   current_player_name: "Computer",
   current_player_marker : 'X',
   game_status : 'Keep playing',
   winner : 'X'
 }
 const staticComputerResponseTwo ={
-  updated_grid : '["X", "O", "3", "4", "5", "6", "7", "8", "9"]',
+  updated_grid : '["X", "X", "3", "O", "5", "6", "7", "8", "9"]',
   current_player_name: "Human",
   current_player_marker : 'O',
   game_status : 'Keep playing',
+  winner : 'X'
+}
+const staticHumanResponseTwo ={
+  updated_grid : '["X", "X", "3", "O", "O", "6", "7", "8", "9"]',
+  current_player_name: "Computer",
+  current_player_marker : 'X',
+  game_status : 'Keep playing',
+  winner : 'X'
+}
+const staticComputerResponseThree ={
+  updated_grid : '["X", "X", "X", "O", "5", "6", "7", "8", "9"]',
+  current_player_name: "Human",
+  current_player_marker : 'O',
+  game_status : 'Won',
   winner : 'X'
 }
