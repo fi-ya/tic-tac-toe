@@ -5,7 +5,7 @@ function ReplayOrExit({ handleReplayGame, handleGameExit, exitGame }) {
     <>
       {exitGame ? (
         <div>
-          <h1>Thank you for playing! Goodbye!</h1>
+          <h1 className='font-size_med'>Thank you for playing! Goodbye!</h1>
         </div>
       ) : (
         <div className="flex-gap">

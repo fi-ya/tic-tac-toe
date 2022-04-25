@@ -63,13 +63,15 @@ function Game() {
 
   async function addPlayerMarker(gridData, currentPlayerMarker, playerMove) {
     const url = BASE_URL + `/start-game/grid`
-
+    setInvalidMove(false)
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then((data) => {
-        setInvalidMove(false)
-
-        if (data.updated_grid === 'Invalid move. Try again') {
+        console.log('invalidMove before fetch', invalidMove)
+        console.log("APP MARK DAYAE", data)
+        if (data.invalid_move == true) {
+          // console.log('invalidMove before', invalidMove)
           setInvalidMove(true)
+          // console.log('invalidMove after', invalidMove)
         } else {
           handleUpdateGame(
             data.updated_grid,
@@ -77,6 +79,7 @@ function Game() {
             data.game_status,
             data.current_player_name,
             data.winner,
+            data.invalid_move
           )
           handleComputerMove(
             data.current_player_name,
@@ -96,6 +99,7 @@ function Game() {
     gameStatus,
     currentPlayerName,
     winner,
+    invalidMoveStatus
   ) => {
     let updatedGridArray = JSON.parse(updatedGrid)
     setGridData(updatedGridArray)
@@ -104,6 +108,7 @@ function Game() {
       setGameStatus(gameStatus)
     }, 1000)
     setCurrentPlayer(currentPlayerName)
+    setInvalidMove(invalidMoveStatus)
 
     handleWinningGame(gameStatus, winner)
   }
@@ -140,8 +145,8 @@ function Game() {
         </section>
       ) : game && gameStatus === 'Keep playing' ? (
         <section>
-          <h2>Player {currentPlayerMarker} turn</h2>
-          <p>Click on the square you want to place your move</p>
+          <h2 className='font-size_med'>Player {currentPlayerMarker} turn</h2>
+          <p className='font-size_sm'>Click on the square you want to place your move</p>
           <Board
             gridData={gridData}
             currentPlayerMarker={currentPlayerMarker}
@@ -150,7 +155,7 @@ function Game() {
         </section>
       ) : game && gameStatus === 'Tie' ? (
         <section>
-          <h2>Game over!! It's a tie!!!</h2>
+          <h2 className='font-size_med blue-font'>Game over!! It's a tie!!!</h2>
           <ReplayOrExit
             handleReplayGame={handleReplayGame}
             handleGameExit={handleGameExit}
@@ -159,7 +164,7 @@ function Game() {
         </section>
       ) : game && gameStatus === 'Won' ? (
         <section>
-          <h2>Congratulations {winner} won!!!</h2>
+          <h2 className='font-size_med red-font'>Congratulations {winner} won!!!</h2>
           <ReplayOrExit
             handleReplayGame={handleReplayGame}
             handleGameExit={handleGameExit}
