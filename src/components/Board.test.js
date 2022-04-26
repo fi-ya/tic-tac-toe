@@ -35,15 +35,18 @@ describe('Board', () => {
     )
 
     const gridButtonElementOne = screen.getByTestId('board-btn-element1')
-    const playerMove = [gridButtonElementOne.textContent,gridButtonElementOne.value]
-    
+    const playerMove = [
+      gridButtonElementOne.textContent,
+      gridButtonElementOne.value,
+    ]
+
     userEvent.click(gridButtonElementOne)
 
     expect(addPlayerMarkerStub).toBeCalled()
     expect(addPlayerMarkerStub).toBeCalledWith(
       gridDataStub,
       currentPlayerMarkerStub,
-      playerMove
+      playerMove,
     )
   })
 
@@ -62,15 +65,18 @@ describe('Board', () => {
     )
 
     const gridButtonElementTwo = screen.getByTestId('board-btn-element2')
-    const playerMove = [gridButtonElementTwo.textContent,gridButtonElementTwo.value]
-    
+    const playerMove = [
+      gridButtonElementTwo.textContent,
+      gridButtonElementTwo.value,
+    ]
+
     userEvent.click(gridButtonElementTwo)
 
     expect(addPlayerMarkerStub).toBeCalled()
     expect(addPlayerMarkerStub).toBeCalledWith(
       gridDataStub,
       currentPlayerMarkerStub,
-      playerMove
+      playerMove,
     )
   })
 })

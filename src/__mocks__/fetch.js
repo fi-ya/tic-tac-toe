@@ -9,7 +9,7 @@ export const mockUpdateGameDataResponseOne = {
   current_player_marker: 'O',
   game_status: 'Keep playing',
   winner: 'X',
-  invalid_move: false
+  invalid_move: false,
 }
 
 export const mockUpdateGameDataResponseTwo = {
@@ -17,7 +17,7 @@ export const mockUpdateGameDataResponseTwo = {
   current_player_marker: 'X',
   game_status: 'Keep playing',
   winner: 'X',
-  invalid_move: false
+  invalid_move: false,
 }
 
 export const mockUpdateGameDataResponseThree = {
@@ -25,7 +25,7 @@ export const mockUpdateGameDataResponseThree = {
   current_player_marker: 'O',
   game_status: 'Keep playing',
   winner: 'X',
-  invalid_move: false
+  invalid_move: false,
 }
 
 export const mockUpdateGameDataResponseFour = {
@@ -33,7 +33,7 @@ export const mockUpdateGameDataResponseFour = {
   current_player_marker: 'X',
   game_status: 'Keep playing',
   winner: 'X',
-  invalid_move: false
+  invalid_move: false,
 }
 
 export const mockUpdateGameDataResponseFive = {
@@ -41,7 +41,7 @@ export const mockUpdateGameDataResponseFive = {
   current_player_marker: 'O',
   game_status: 'Won',
   winner: 'X',
-  invalid_move: false
+  invalid_move: false,
 }
 
 export const mockTieGameDataResponse = {
@@ -49,7 +49,7 @@ export const mockTieGameDataResponse = {
   current_player_marker: 'O',
   game_status: 'Tie',
   winner: 'X',
-  invalid_move: false
+  invalid_move: false,
 }
 
 export const mockInvalidMoveGameDataResponse = {
@@ -57,5 +57,5 @@ export const mockInvalidMoveGameDataResponse = {
   current_player_marker: 'O',
   game_status: 'Keep playing',
   winner: 'X',
-  invalid_move: true
+  invalid_move: true,
 }

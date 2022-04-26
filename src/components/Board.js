@@ -11,7 +11,13 @@ function Board({ gridData, currentPlayerMarker, addPlayerMarker }) {
     <section className="board-container">
       <div className="grid-container">
         {gridData.map((item, i) => (
-          <button key={i} className="grid-item" onClick={setPlayerMarker} value={i} data-testid={`board-btn-element${i+1}`}>
+          <button
+            key={i}
+            className="grid-item"
+            onClick={setPlayerMarker}
+            value={i}
+            data-testid={`board-btn-element${i + 1}`}
+          >
             {item}
           </button>
         ))}

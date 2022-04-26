@@ -90,17 +90,17 @@ describe('Game', () => {
     const buttonElementOne = screen.getByTestId('board-btn-element1')
     await mockApiPutRequest(mockUpdateGameDataResponseOne)
     userEvent.click(buttonElementOne)
-    await waitFor(() => screen.getByRole('heading', {  name: /player o turn/i}))
+    await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
 
     expect(buttonElementOne.textContent).not.toBe(' ')
     expect(buttonElementOne.textContent).toBe('X')
 
     // second turn o
-    const buttonElementOneAgain = screen.getByRole('button', {  name: /x/i})
+    const buttonElementOneAgain = screen.getByRole('button', { name: /x/i })
     await mockApiPutRequest(mockInvalidMoveGameDataResponse)
     userEvent.click(buttonElementOneAgain)
     await waitFor(() =>
-      screen.getByRole('heading', {  name: /invalid move\. try again!/i}),
+      screen.getByRole('heading', { name: /invalid move\. try again!/i }),
     )
 
     expect(

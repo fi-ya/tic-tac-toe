@@ -28,7 +28,7 @@ h2 {
 .App-link {
   color: #61dafb;
 }
-.font-size_sm{
+.font-size_sm {
   font-size: 1.5rem;
 }
 .font-size_med {
@@ -78,12 +78,11 @@ h2 {
   padding: 2rem 2.5rem;
   font-size: 2.5rem;
   text-align: center;
-  width:12.5rem;
-  height:12.5rem;
+  width: 12.5rem;
+  height: 12.5rem;
 }
 
-button{
-
+button {
 }
 
 button:hover {
@@ -119,9 +118,9 @@ button:hover {
 .margin_sm {
   margin: 1rem;
 }
-.blue-font{
-  color:#61dafb;
+.blue-font {
+  color: #61dafb;
 }
-.red-font{
-    color:#d22b2b;
+.red-font {
+  color: #d22b2b;
 }
