@@ -99,6 +99,7 @@ describe('Game', () => {
     const buttonElementOneAgain = screen.getByRole('button', { name: /x/i })
     await mockApiPutRequest(mockInvalidMoveGameDataResponse)
     userEvent.click(buttonElementOneAgain)
+    screen.debug()
     await waitFor(() =>
       screen.getByRole('heading', { name: /invalid move\. try again!/i }),
     )

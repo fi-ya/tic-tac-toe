@@ -68,7 +68,7 @@ function Game() {
       .then((data) => {
         console.log('invalidMove before fetch', invalidMove)
         console.log("APP MARK DAYAE", data)
-        if (data.invalid_move == true) {
+        if (data.invalid_move) {
           // console.log('invalidMove before', invalidMove)
           setInvalidMove(true)
           // console.log('invalidMove after', invalidMove)

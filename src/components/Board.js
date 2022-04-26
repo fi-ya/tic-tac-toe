@@ -2,7 +2,6 @@ import '../App.css'
 import React from 'react'
 
 function Board({ gridData, currentPlayerMarker, addPlayerMarker }) {
- 
   const setPlayerMarker = (e) => {
     let playerMove = [e.target.innerHTML, e.target.value]
     addPlayerMarker(gridData, currentPlayerMarker, playerMove)
@@ -12,7 +11,7 @@ function Board({ gridData, currentPlayerMarker, addPlayerMarker }) {
     <section className="board-container">
       <div className="grid-container">
         {gridData.map((item, i) => (
-          <button key={i} className="grid-item" onClick={setPlayerMarker} value={i}>
+          <button key={i} className="grid-item" onClick={setPlayerMarker} value={i} data-testid={`board-btn-element${i+1}`}>
             {item}
           </button>
         ))}
