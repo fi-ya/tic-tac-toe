@@ -4,7 +4,7 @@ describe('Game', () => {
     cy.visit('/')
   })
   
-  it('should load the homepage successfully', () => {
+  xit('should load the homepage successfully', () => {
     cy.get('.App-header > h1').should('have.text', 'Let\'s play Tic Tac Toe!')
     cy.get('.game-mode-container > :nth-child(1)').should('have.text', 'How to play')
     cy.get('p').should('have.text', 'First pick who you would like to play against, another human or a computer. Each player take turns in placing their marker on the board with `X` playing first. The first player to get 3 of their marks in a row (up, down, across, or diagonally) is the winner. When all 9 squares are full, the game is over. If no player has 3 marks in a row, the game ends in a tie.')
@@ -51,7 +51,7 @@ describe('Game', () => {
     cy.get('.App').should('not.contain', '.padding-sm')
   })
 
-  it('should play a human vs human game and quit successfully', () => {
+  xit('should play a human vs human game and quit successfully', () => {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
@@ -65,7 +65,7 @@ describe('Game', () => {
     cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!')    
   })
 
-  it('should play computer vs human game and quit successfully', ()=>{
+  xit('should play computer vs human game and quit successfully', ()=>{
  
     cy.intercept('GET', '/start-game/2', { fixture: 'computer_human_game' }).as('getComputerVsHumanGame')
     
@@ -78,7 +78,7 @@ describe('Game', () => {
     cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
   })
 
-  it('should play a human vs human game and replay a new computer vs human game and replay successfully', () => {
+  xit('should play a human vs human game and replay a new computer vs human game and replay successfully', () => {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
@@ -100,7 +100,7 @@ describe('Game', () => {
     cy.get('.game-mode-container > :nth-child(3)').should('have.text', 'Select game mode')
   })
 
-  it('should display correct message when game tied and be able to quit game successfully', ()=> {
+  xit('should display correct message when game tied and be able to quit game successfully', ()=> {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
@@ -114,7 +114,7 @@ describe('Game', () => {
     cy.get('div > h1').should('have.text','Thank you for playing! Goodbye!') 
   })
 
-  it('should display correct message when game tied and be able to replay game successfully', ()=> {
+  xit('should display correct message when game tied and be able to replay game successfully', ()=> {
     cy.intercept('GET', '/start-game/1', { fixture: 'human_human_game' }).as('getHumanVsHumanGame') 
 
     cy.get('[name="human_human"]').click()
