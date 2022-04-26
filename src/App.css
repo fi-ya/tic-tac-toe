@@ -29,7 +29,13 @@ h2 {
 .App-link {
   color: #61dafb;
 }
-
+.font-size_med {
+  font-size: 2.5rem;
+}
+.game-mode-container {
+  display: flex;
+  flex-direction: column;
+}
 .game-container {
   display: flex;
   flex-direction: column;
@@ -46,8 +52,10 @@ h2 {
 }
 .flex-gap {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
-  margin: 1rem 1rem;
+  margin: 1rem 0rem 1rem 1rem;
 }
 .board-container {
   display: flex;
@@ -72,14 +80,32 @@ button:hover {
   background-color: #61dafb;
 }
 
-.error-msg {
-  background-color: #d22b2b;
+.alert-msg {
   color: #fafafa;
+  border-radius: 0.3rem;
   margin: 1rem;
+}
+.red-bkgd {
+  background-color: #d22b2b;
+}
+.blue-bkgd {
+  background-color: rgb(33, 49, 141);
 }
 .padding-sm {
   padding: 1rem 1rem;
 }
 .game_mode_choice {
   background-color: #61dafb;
+}
+.instruction-container {
+  width: 34em;
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+  text-align: left;
+}
+.instruction-container p {
+  margin: 0.5rem 0.5rem 1rem 0.5rem;
+}
+.margin_sm {
+  margin: 1rem;
 }

@@ -19,7 +19,7 @@ describe('Game', () => {
   it('wins human vs human game and exit successfully', async () => {
     render(<Game />)
     await selectHumanVsHumanGame()
-    await playWinningGame()
+    await playHumanVsHumanWinningGame()
     const quitButtonElement = screen.getByRole('button', { name: /quit/i })
 
     expect(quitButtonElement).toBeInTheDocument()
@@ -35,7 +35,7 @@ describe('Game', () => {
   it('wins human vs human game and replays successfully', async () => {
     render(<Game />)
     await selectHumanVsHumanGame()
-    await playWinningGame()
+    await playHumanVsHumanWinningGame()
     const replayButtonElement = screen.getByRole('button', { name: /replay/i })
 
     expect(replayButtonElement).toBeInTheDocument()
@@ -150,7 +150,7 @@ async function selectHumanVsHumanGame() {
   expect(instructionTextElement).toBeInTheDocument()
 }
 
-async function playWinningGame() {
+async function playHumanVsHumanWinningGame() {
   // first turn x
   const buttonElementOne = screen.getByRole('button', { name: /1/i })
   await mockApiPutRequest(mockUpdateGameDataResponseOne)
@@ -191,13 +191,15 @@ async function playWinningGame() {
   const buttonElementNine = screen.getByRole('button', { name: /9/i })
   await mockApiPutRequest(mockUpdateGameDataResponseFive)
   userEvent.click(buttonElementNine)
-  await waitFor(() =>
-    screen.getByRole('heading', { name: /congratulations x won!!!/i }),
-  )
+
+  await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
 
   expect(buttonElementNine.textContent).not.toBe('9')
   expect(buttonElementNine.textContent).toBe('X')
 
+  await waitFor(() =>
+    screen.getByRole('heading', { name: /congratulations x won!!!/i }),
+  )
   // winner
   const congratsHeadingElement = screen.getByRole('heading', {
     name: /congratulations x won!!!/i,
@@ -211,6 +213,8 @@ async function playTieGame() {
   const lastPlayButtonElement = screen.getByRole('button', { name: /9/i })
   await mockApiPutRequest(mockTieGameDataResponse)
   userEvent.click(lastPlayButtonElement)
+  await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
+
   await waitFor(() =>
     screen.getByRole('heading', { name: /game over!! it's a tie!!!/i }),
   )

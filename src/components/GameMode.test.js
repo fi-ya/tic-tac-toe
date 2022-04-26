@@ -4,10 +4,26 @@ import React from 'react'
 import GameMode from './GameMode'
 
 describe('GameMode', () => {
-  it('should render a heading ', () => {
+  it('should render two headings, how to play, select game mode ', () => {
     render(<GameMode />)
-    const heading = screen.getByRole('heading', { name: /select game mode/i })
-    expect(heading).toBeInTheDocument()
+    const howToPlayHeading = screen.getByRole('heading', {
+      name: /how to play/i,
+    })
+    const selectGameModeHeading = screen.getByRole('heading', {
+      name: /select game mode/i,
+    })
+
+    expect(howToPlayHeading).toBeInTheDocument()
+    expect(selectGameModeHeading).toBeInTheDocument()
+  })
+
+  it('should render paragraph containing instructions on how to play game ', () => {
+    render(<GameMode />)
+    const gameInstructionsParagraph = screen.getByText(
+      /first pick who you would like to play against, another human or a computer\. each player take turns in placing their marker on the board with `x` playing first\. the first player to get 3 of their marks in a row \(up, down, across, or diagonally\) is the winner\. when all 9 squares are full, the game is over\. if no player has 3 marks in a row, the game ends in a tie\./i,
+    )
+
+    expect(gameInstructionsParagraph).toBeInTheDocument()
   })
 
   it('should render human vs human game mode button', async () => {

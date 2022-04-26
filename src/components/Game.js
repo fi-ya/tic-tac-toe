@@ -4,12 +4,12 @@ import Board from './Board'
 import ReplayOrExit from './ReplayOrExit'
 import GameMode from './GameMode'
 import BASE_URL from '../config'
-import { fetchNewGame, updateGameData } from '../fetch'
+import { fetchNewGame, updateGameData, fetchComputerMove } from '../fetch'
 
 function Game() {
   const [game, setNewGame] = useState(false)
   const [gridData, setGridData] = useState([])
-  const [currentPlayer, setCurrentPlayer] = useState('X')
+  const [currentPlayer, setCurrentPlayer] = useState('')
   const [currentPlayerMarker, setCurrentPlayerMarker] = useState('')
   const [gameStatus, setGameStatus] = useState('Keep playing')
   const [winner, setWinner] = useState('')
@@ -28,14 +28,42 @@ function Game() {
         setNewGame(true)
         setCurrentPlayerMarker(data.player1_marker)
         setGridData(gridArray)
+        setTimeout(() => {
+          handleComputerMove(
+            data.player1_name,
+            data.new_grid,
+            data.player1_marker,
+          )
+        }, 1000)
       })
       .catch((error) =>
         console.error('Error getting data for startGame:', error),
       )
   }
 
+  async function getComputerMove(grid, currentPlayerMarker) {
+    const url = BASE_URL + `/start-game/computer_move`
+
+    return await fetchComputerMove(url, grid, currentPlayerMarker)
+      .then((data) => {
+        setTimeout(() => {
+          handleUpdateGame(
+            data.updated_grid,
+            data.current_player_marker,
+            data.game_status,
+            data.current_player_name,
+            data.winner,
+          )
+        }, 1000)
+      })
+      .catch((error) =>
+        console.error('Error getting data for getComputerMove:', error),
+      )
+  }
+
   async function addPlayerMarker(gridData, currentPlayerMarker, playerMove) {
     const url = BASE_URL + `/start-game/grid`
+
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then((data) => {
         setInvalidMove(false)
@@ -43,19 +71,54 @@ function Game() {
         if (data.updated_grid === 'Invalid move. Try again') {
           setInvalidMove(true)
         } else {
-          let updatedGridArray = JSON.parse(data.updated_grid)
-          setGridData(updatedGridArray)
-          setCurrentPlayerMarker(data.current_player_marker)
-          setGameStatus(data.game_status)
-
-          if (data.game_status === 'Won') {
-            setWinner(data.winner)
-          }
+          handleUpdateGame(
+            data.updated_grid,
+            data.current_player_marker,
+            data.game_status,
+            data.current_player_name,
+            data.winner,
+          )
+          handleComputerMove(
+            data.current_player_name,
+            data.updated_grid,
+            data.current_player_marker,
+          )
         }
       })
       .catch((error) =>
         console.error('Error getting data for addPlayerMarker:', error),
       )
+  }
+
+  const handleUpdateGame = (
+    updatedGrid,
+    currentPlayerMarker,
+    gameStatus,
+    currentPlayerName,
+    winner,
+  ) => {
+    let updatedGridArray = JSON.parse(updatedGrid)
+    setGridData(updatedGridArray)
+    setCurrentPlayerMarker(currentPlayerMarker)
+    setTimeout(() => {
+      setGameStatus(gameStatus)
+    }, 1000)
+    setCurrentPlayer(currentPlayerName)
+
+    handleWinningGame(gameStatus, winner)
+  }
+
+  const handleComputerMove = (currentPlayerName, grid, currentPlayerMarker) => {
+    if (currentPlayerName === 'Computer') {
+      getComputerMove(grid, currentPlayerMarker)
+    }
+  }
+
+  const handleWinningGame = (gameStatus, winner) => {
+    if (gameStatus === 'Won') {
+      setWinner(winner)
+      setCurrentPlayer('')
+    }
   }
 
   const handleGameExit = () => {
@@ -66,6 +129,7 @@ function Game() {
     setGameMode(null)
     setNewGame(true)
     setGameStatus('Keep playing')
+    setCurrentPlayer('')
   }
 
   return (
@@ -108,8 +172,13 @@ function Game() {
         </section>
       )}
       {invalidMove ? (
-        <div className="error-msg">
+        <div className="alert-msg red-bkgd">
           <h1 className="padding-sm">Invalid move. Try again!</h1>
+        </div>
+      ) : null}
+      {currentPlayer === 'Computer' ? (
+        <div className="alert-msg blue-bkgd">
+          <h1 className="padding-sm">Computer thinking...</h1>
         </div>
       ) : null}
     </main>

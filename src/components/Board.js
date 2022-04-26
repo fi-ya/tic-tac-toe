@@ -10,33 +10,11 @@ function Board({ gridData, currentPlayerMarker, addPlayerMarker }) {
   return (
     <section className="board-container">
       <div className="grid-container">
-        <button className="grid-item" onClick={setPlayerMarker}>
-          {gridData[0]}
-        </button>
-        <button className="grid-item" onClick={setPlayerMarker}>
-          {gridData[1]}
-        </button>
-        <button className="grid-item" onClick={setPlayerMarker}>
-          {gridData[2]}
-        </button>
-        <button className="grid-item" onClick={setPlayerMarker}>
-          {gridData[3]}
-        </button>
-        <button className="grid-item" onClick={setPlayerMarker}>
-          {gridData[4]}
-        </button>
-        <button className="grid-item" onClick={setPlayerMarker}>
-          {gridData[5]}
-        </button>
-        <button className="grid-item" onClick={setPlayerMarker}>
-          {gridData[6]}
-        </button>
-        <button className="grid-item" onClick={setPlayerMarker}>
-          {gridData[7]}
-        </button>
-        <button className="grid-item" onClick={setPlayerMarker}>
-          {gridData[8]}
-        </button>
+        {gridData.map((item, i) => (
+          <button key={i} className="grid-item" onClick={setPlayerMarker}>
+            {item}
+          </button>
+        ))}
       </div>
     </section>
   )

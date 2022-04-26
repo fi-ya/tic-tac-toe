@@ -17,12 +17,12 @@
     "start": "react-scripts -r @cypress/instrument-cra start",
     "build": "export CI= && react-scripts build",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
+    "jest:coverage": "npm test -- --env=jest-environment-jsdom-sixteen --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint src/*.js src/**/*.js ",
     "lint:fix": "eslint --fix ./src",
     "format:check": "prettier --check ./src",
     "format:fix": "prettier --write ./src",
-    "jest:coverage": "npm test -- --env=jsdom --coverage",
     "test:e2e": "cypress open",
     "test:e2e:ci": "cypress run",
     "cypress:coverage": "npx nyc report --reporter=text-summary"
