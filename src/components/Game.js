@@ -67,23 +67,22 @@ function Game() {
 
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then((data) => {
-        if (data.invalid_move) {
-          setInvalidMove(true)
-        } else {
-          handleUpdateGame(
-            data.updated_grid,
-            data.current_player_marker,
-            data.game_status,
-            data.current_player_name,
-            data.winner,
-            data.invalid_move,
-          )
-          handleComputerMove(
-            data.current_player_name,
-            data.updated_grid,
-            data.current_player_marker,
-          )
-        }
+        if (data.invalid_move) return setInvalidMove(true)
+
+        handleUpdateGame(
+          data.updated_grid,
+          data.current_player_marker,
+          data.game_status,
+          data.current_player_name,
+          data.winner,
+          data.invalid_move,
+        )
+        
+        handleComputerMove(
+          data.current_player_name,
+          data.updated_grid,
+          data.current_player_marker,
+        )
       })
       .catch((error) =>
         console.error('Error getting data for addPlayerMarker:', error),
@@ -111,9 +110,7 @@ function Game() {
   }
 
   const handleComputerMove = (currentPlayerName, grid, currentPlayerMarker) => {
-    if (currentPlayerName === 'Computer') {
-      getComputerMove(grid, currentPlayerMarker)
-    }
+    if (currentPlayerName === 'Computer') return getComputerMove(grid, currentPlayerMarker)
   }
 
   const handleWinningGame = (gameStatus, winner) => {
