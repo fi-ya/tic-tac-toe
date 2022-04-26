@@ -1,42 +1,47 @@
 export const mockFetchNewGameResponse = {
   player1_name: 'Human',
   player1_marker: 'X',
-  new_grid: '["1", "2", "3", "4", "5", "6", "7", "8", "9"]',
+  new_grid: '[" ", " ", " ", " ", " ", " ", " ", " ", " "]',
 }
 
 export const mockUpdateGameDataResponseOne = {
-  updated_grid: '["X", "2", "3", "4", "5", "6", "7", "8", "9"]',
+  updated_grid: '["X", " ", " ", " ", " ", " ", " ", " ", " "]',
   current_player_marker: 'O',
   game_status: 'Keep playing',
   winner: 'X',
+  invalid_move: false
 }
 
 export const mockUpdateGameDataResponseTwo = {
-  updated_grid: '["X", "O", "3", "4", "5", "6", "7", "8", "9"]',
+  updated_grid: '["X", "O", " ", " ", " ", " ", " ", " ", " "]',
   current_player_marker: 'X',
   game_status: 'Keep playing',
   winner: 'X',
+  invalid_move: false
 }
 
 export const mockUpdateGameDataResponseThree = {
-  updated_grid: '["X", "O", "3", "4", "X", "6", "7", "8", "9"]',
+  updated_grid: '["X", "O", " ", " ", "X", " ", " ", " ", " "]',
   current_player_marker: 'O',
   game_status: 'Keep playing',
   winner: 'X',
+  invalid_move: false
 }
 
 export const mockUpdateGameDataResponseFour = {
-  updated_grid: '["X", "O", "3", "4", "X", "O", "7", "8", "9"]',
+  updated_grid: '["X", "O", " ", " ", "X", "O", " ", " ", " "]',
   current_player_marker: 'X',
   game_status: 'Keep playing',
   winner: 'X',
+  invalid_move: false
 }
 
 export const mockUpdateGameDataResponseFive = {
-  updated_grid: '["X", "O", "3", "4", "X", "O", "7", "8", "X"]',
+  updated_grid: '["X", "O", " ", " ", "X", "O", " ", " ", "X"]',
   current_player_marker: 'O',
   game_status: 'Won',
   winner: 'X',
+  invalid_move: false
 }
 
 export const mockTieGameDataResponse = {
@@ -44,11 +49,13 @@ export const mockTieGameDataResponse = {
   current_player_marker: 'O',
   game_status: 'Tie',
   winner: 'X',
+  invalid_move: false
 }
 
 export const mockInvalidMoveGameDataResponse = {
-  updated_grid: 'Invalid move. Try again',
+  updated_grid: '["X", " ", " ", " ", " ", " ", " ", " ", " "]',
   current_player_marker: 'O',
   game_status: 'Keep playing',
   winner: 'X',
+  invalid_move: true
 }

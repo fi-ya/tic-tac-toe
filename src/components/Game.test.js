@@ -87,21 +87,20 @@ describe('Game', () => {
     await selectHumanVsHumanGame()
 
     // first turn x
-    const buttonElementOne = screen.getByRole('button', { name: /1/i })
+    const buttonElementOne = screen.getByTestId('board-btn-element1')
     await mockApiPutRequest(mockUpdateGameDataResponseOne)
     userEvent.click(buttonElementOne)
-    await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
+    await waitFor(() => screen.getByRole('heading', {  name: /player o turn/i}))
 
-    expect(buttonElementOne.textContent).not.toBe('1')
+    expect(buttonElementOne.textContent).not.toBe(' ')
     expect(buttonElementOne.textContent).toBe('X')
 
     // second turn o
-    const buttonElementOneAgain = screen.getByRole('button', { name: /x/i })
+    const buttonElementOneAgain = screen.getByRole('button', {  name: /x/i})
     await mockApiPutRequest(mockInvalidMoveGameDataResponse)
     userEvent.click(buttonElementOneAgain)
-    screen.debug()
     await waitFor(() =>
-      screen.getByRole('heading', { name: /invalid move\. try again!/i }),
+      screen.getByRole('heading', {  name: /invalid move\. try again!/i}),
     )
 
     expect(
@@ -153,49 +152,49 @@ async function selectHumanVsHumanGame() {
 
 async function playHumanVsHumanWinningGame() {
   // first turn x
-  const buttonElementOne = screen.getByRole('button', { name: /1/i })
+  const buttonElementOne = screen.getByTestId('board-btn-element1')
   await mockApiPutRequest(mockUpdateGameDataResponseOne)
   userEvent.click(buttonElementOne)
   await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
 
-  expect(buttonElementOne.textContent).not.toBe('1')
+  expect(buttonElementOne.textContent).not.toBe(' ')
   expect(buttonElementOne.textContent).toBe('X')
 
   // second turn o
-  const buttonElementTwo = screen.getByRole('button', { name: /2/i })
+  const buttonElementTwo = screen.getByTestId('board-btn-element2')
   await mockApiPutRequest(mockUpdateGameDataResponseTwo)
   userEvent.click(buttonElementTwo)
   await waitFor(() => screen.getByRole('heading', { name: /player x turn/i }))
 
-  expect(buttonElementTwo.textContent).not.toBe('2')
+  expect(buttonElementTwo.textContent).not.toBe(' ')
   expect(buttonElementTwo.textContent).toBe('O')
 
   // third turn x
-  const buttonElementFive = screen.getByRole('button', { name: /5/i })
+  const buttonElementFive = screen.getByTestId('board-btn-element5')
   await mockApiPutRequest(mockUpdateGameDataResponseThree)
   userEvent.click(buttonElementFive)
   await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
 
-  expect(buttonElementFive.textContent).not.toBe('5')
+  expect(buttonElementFive.textContent).not.toBe(' ')
   expect(buttonElementFive.textContent).toBe('X')
 
   // fourth turn o
-  const buttonElementSix = screen.getByRole('button', { name: /6/i })
+  const buttonElementSix = screen.getByTestId('board-btn-element6')
   await mockApiPutRequest(mockUpdateGameDataResponseFour)
   userEvent.click(buttonElementSix)
   await waitFor(() => screen.getByRole('heading', { name: /player x turn/i }))
 
-  expect(buttonElementSix.textContent).not.toBe('6')
+  expect(buttonElementSix.textContent).not.toBe(' ')
   expect(buttonElementSix.textContent).toBe('O')
 
   // fifth turn x
-  const buttonElementNine = screen.getByRole('button', { name: /9/i })
+  const buttonElementNine = screen.getByTestId('board-btn-element9')
   await mockApiPutRequest(mockUpdateGameDataResponseFive)
   userEvent.click(buttonElementNine)
 
   await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
 
-  expect(buttonElementNine.textContent).not.toBe('9')
+  expect(buttonElementNine.textContent).not.toBe(' ')
   expect(buttonElementNine.textContent).toBe('X')
 
   await waitFor(() =>
@@ -211,7 +210,7 @@ async function playHumanVsHumanWinningGame() {
 
 async function playTieGame() {
   // test from last turn
-  const lastPlayButtonElement = screen.getByRole('button', { name: /9/i })
+  const lastPlayButtonElement = screen.getByTestId('board-btn-element9')
   await mockApiPutRequest(mockTieGameDataResponse)
   userEvent.click(lastPlayButtonElement)
   await waitFor(() => screen.getByRole('heading', { name: /player o turn/i }))
