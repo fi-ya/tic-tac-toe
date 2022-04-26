@@ -77,7 +77,7 @@ function Game() {
           data.winner,
           data.invalid_move,
         )
-        
+
         handleComputerMove(
           data.current_player_name,
           data.updated_grid,
@@ -110,7 +110,8 @@ function Game() {
   }
 
   const handleComputerMove = (currentPlayerName, grid, currentPlayerMarker) => {
-    if (currentPlayerName === 'Computer') return getComputerMove(grid, currentPlayerMarker)
+    if (currentPlayerName === 'Computer')
+      return getComputerMove(grid, currentPlayerMarker)
   }
 
   const handleWinningGame = (gameStatus, winner) => {
