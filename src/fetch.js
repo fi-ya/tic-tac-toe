@@ -1,8 +1,11 @@
+const myHeaders = new Headers()
+
+myHeaders.append('Content-Type', 'application/json')
+myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:4567')
+
 export const fetchNewGame = async (url) => {
   return await fetch(url, {
-    headers: {
-      'Access-Control-Allow-Origin': 'http://localhost:4567',
-    },
+    headers: myHeaders,
   })
     .then((response) => {
       if (!response.ok) throw new Error(response.status)
@@ -21,11 +24,12 @@ export const updateGameData = async (
 ) => {
   return await fetch(url, {
     method: 'PUT',
-    headers: {
-      'Content-type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:4567',
-    },
-    body: JSON.stringify([gridData, currentPlayerMarker, playerMove]),
+    headers: myHeaders,
+    body: JSON.stringify({
+      grid: gridData,
+      current_player_marker: currentPlayerMarker,
+      player_move: playerMove,
+    }),
   })
     .then((response) => {
       if (!response.ok) throw new Error(response.status)
@@ -39,11 +43,11 @@ export const updateGameData = async (
 export const fetchComputerMove = async (url, grid, currentPlayerMarker) => {
   return await fetch(url, {
     method: 'PUT',
-    headers: {
-      'Content-type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:4567',
-    },
-    body: JSON.stringify([grid, currentPlayerMarker]),
+    headers: myHeaders,
+    body: JSON.stringify({
+      grid: grid,
+      current_player_marker: currentPlayerMarker,
+    }),
   })
     .then((response) => {
       if (!response.ok) throw new Error(response.status)
