@@ -2,6 +2,7 @@ import '../App.css'
 import React from 'react'
 
 function Board({ gridData, currentPlayerMarker, addPlayerMarker }) {
+  console.log(gridData, "board")
   const setPlayerMarker = (e) => {
     let playerMove = [e.target.innerHTML, e.target.value]
     addPlayerMarker(gridData, currentPlayerMarker, playerMove)

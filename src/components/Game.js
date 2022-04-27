@@ -23,17 +23,15 @@ function Game() {
 
     return await fetchNewGame(url)
       .then((data) => {
-        let gridArray = JSON.parse(data.new_grid)
-        setCurrentPlayer(data.player1_name)
+        console.log('data', data.grid)
+
+        setCurrentPlayer(data.player1_type)
         setNewGame(true)
         setCurrentPlayerMarker(data.player1_marker)
-        setGridData(gridArray)
+        setGridData(data.grid)
+        console.log("grid in fetch" ,gridData )
         setTimeout(() => {
-          handleComputerMove(
-            data.player1_name,
-            data.new_grid,
-            data.player1_marker,
-          )
+          handleComputerMove(data.player1_type, data.grid, data.player1_marker)
         }, 1000)
       })
       .catch((error) =>
@@ -46,6 +44,7 @@ function Game() {
 
     return await fetchComputerMove(url, grid, currentPlayerMarker)
       .then((data) => {
+        console.log('data1', data)
         setTimeout(() => {
           handleUpdateGame(
             data.updated_grid,
@@ -67,6 +66,8 @@ function Game() {
 
     return await updateGameData(url, gridData, currentPlayerMarker, playerMove)
       .then((data) => {
+        console.log('data2', data)
+
         if (data.invalid_move) return setInvalidMove(true)
 
         handleUpdateGame(
@@ -90,14 +91,13 @@ function Game() {
   }
 
   const handleUpdateGame = (
-    updatedGrid,
+    updatedGridArray,
     currentPlayerMarker,
     gameStatus,
     currentPlayerName,
     winner,
     invalidMoveStatus,
   ) => {
-    let updatedGridArray = JSON.parse(updatedGrid)
     setGridData(updatedGridArray)
     setCurrentPlayerMarker(currentPlayerMarker)
     setTimeout(() => {
@@ -131,6 +131,7 @@ function Game() {
     setGameStatus('Keep playing')
     setCurrentPlayer('')
   }
+  console.log(gridData, "gridData")
 
   return (
     <main>
