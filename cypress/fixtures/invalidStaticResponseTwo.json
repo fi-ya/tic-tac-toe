@@ -1,6 +1,7 @@
 {
-  "updated_grid":"Invalid move. Try again",
+  "updated_grid":"[\"X\", \" \", \" \", \" \", \" \", \" \", \" \", \" \", \" \"]",
   "current_player_marker":"O",
   "game_status":"Keep playing",
-  "winner":"X"
+  "winner":"X",
+  "invalid_move": true
 }

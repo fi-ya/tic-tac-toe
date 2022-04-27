@@ -23,11 +23,13 @@ body {
   color: rgb(33, 49, 141);
 }
 h2 {
-  margin: 0.3rem;
+  margin: 2rem 1rem;
 }
-
 .App-link {
   color: #61dafb;
+}
+.font-size_sm {
+  font-size: 1.5rem;
 }
 .font-size_med {
   font-size: 2.5rem;
@@ -45,10 +47,12 @@ h2 {
 }
 
 .btn {
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  border-radius: 0.2rem;
+  font-size: 1.7rem;
   font-weight: bold;
+  border-radius: 0.2rem;
+  height: 8rem;
+  width: 22rem;
+  text-align: center;
 }
 .flex-gap {
   display: flex;
@@ -72,8 +76,13 @@ h2 {
 .grid-item {
   border: 1px solid rgb(33, 49, 141);
   padding: 2rem 2.5rem;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   text-align: center;
+  width: 12.5rem;
+  height: 12.5rem;
+}
+
+button {
 }
 
 button:hover {
@@ -108,4 +117,10 @@ button:hover {
 }
 .margin_sm {
   margin: 1rem;
+}
+.blue-font {
+  color: #61dafb;
+}
+.red-font {
+  color: #d22b2b;
 }

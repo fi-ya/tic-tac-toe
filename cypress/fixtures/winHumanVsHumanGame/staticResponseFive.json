@@ -1,6 +1,7 @@
 {
-  "updated_grid":"[\"X\", \"O\", \"3\", \"4\", \"X\", \"O\", \"7\", \"8\", \"X\"]",
+  "updated_grid":"[\"X\", \"O\", \" \", \" \", \"X\", \"O\", \" \", \" \", \"X\"]",
   "current_player_marker":"O",
   "game_status":"Won",
-  "winner":"X"
+  "winner":"X",
+  "invalid_move": false
 }

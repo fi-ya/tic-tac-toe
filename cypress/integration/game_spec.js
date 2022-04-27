@@ -23,7 +23,7 @@ describe('Game', () => {
     cy.get('[name="human_human"]').click()
     cy.get('h2').should('have.text', 'Player X turn')
     cy.get('p').should('have.text', 'Click on the square you want to place your move')
-    cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
+    cy.get('.grid-container > :nth-child(1)').should('have.text', ' ')
 
     cy.intercept('PUT', '/start-game/grid', {fixture : 'winHumanVsHumanGame/staticResponseOne'}).as('putMoveAtOne') 
 
@@ -39,7 +39,7 @@ describe('Game', () => {
     cy.wait('@putMoveAtTwo')
 
     cy.get('.padding-sm').should('have.text', 'Invalid move. Try again!')
-    cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
+    cy.get('.grid-container > :nth-child(2)').should('have.text', ' ')
     
     cy.intercept('PUT', '/start-game/grid', {fixture : 'winHumanVsHumanGame/staticResponseTwo'}).as('putMoveAtTwo') 
 
@@ -131,7 +131,7 @@ describe('Game', () => {
 })
 
 function playWinningHumanVsHumanGame(){
-  cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
+  cy.get('.grid-container > :nth-child(1)').should('have.text', ' ')
 
   cy.intercept('PUT', '/start-game/grid', {fixture : 'winHumanVsHumanGame/staticResponseOne'}).as('putMoveAtOne') 
 
@@ -139,7 +139,7 @@ function playWinningHumanVsHumanGame(){
   cy.wait('@putMoveAtOne')
   cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn') 
-  cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
+  cy.get('.grid-container > :nth-child(2)').should('have.text', ' ')
 
   cy.intercept('PUT', '/start-game/grid', {fixture : 'winHumanVsHumanGame/staticResponseTwo'}).as('putMoveAtTwo') 
 
@@ -147,7 +147,7 @@ function playWinningHumanVsHumanGame(){
   cy.wait('@putMoveAtTwo')
   cy.get('.grid-container > :nth-child(2)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
-  cy.get('.grid-container > :nth-child(5)').should('have.text', '5')
+  cy.get('.grid-container > :nth-child(5)').should('have.text', ' ')
 
   cy.intercept('PUT', '/start-game/grid', {fixture : 'winHumanVsHumanGame/staticResponseThree'}).as('putMoveAtThree') 
 
@@ -155,7 +155,7 @@ function playWinningHumanVsHumanGame(){
   cy.wait('@putMoveAtThree')
   cy.get('.grid-container > :nth-child(5)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
-  cy.get('.grid-container > :nth-child(6)').should('have.text', '6')
+  cy.get('.grid-container > :nth-child(6)').should('have.text', ' ')
 
   cy.intercept('PUT', '/start-game/grid', {fixture : 'winHumanVsHumanGame/staticResponseFour'}).as('putMoveAtFour') 
 
@@ -163,7 +163,7 @@ function playWinningHumanVsHumanGame(){
   cy.wait('@putMoveAtFour')
   cy.get('.grid-container > :nth-child(6)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
-  cy.get('.grid-container > :nth-child(9)').should('have.text', '9')
+  cy.get('.grid-container > :nth-child(9)').should('have.text', ' ')
 
   cy.intercept('PUT', '/start-game/grid', {fixture : 'winHumanVsHumanGame/staticResponseFive'}).as('putMoveAtFive') 
 
@@ -182,7 +182,7 @@ function playWinningComputerVsHumanGame(){
   cy.wait('@putCompMoveAtOne')
   cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn') 
-  cy.get('.grid-container > :nth-child(4)').should('have.text', '4')
+  cy.get('.grid-container > :nth-child(4)').should('have.text', ' ')
 
   cy.intercept('PUT', '/start-game/grid', {fixture : 'winComputerVsHumanGame/staticHumanResponseOne'}).as('putHumanMoveAtFour') 
   cy.intercept('PUT', '/start-game/computer_move', {fixture : 'winComputerVsHumanGame/staticComputerResponseTwo'}).as('putCompMoveAtTwo')
@@ -193,12 +193,12 @@ function playWinningComputerVsHumanGame(){
   cy.get('h2').should('have.text', 'Player X turn') 
   cy.get('.grid-container > :nth-child(4)').should('have.text', 'O')    
   cy.get('.padding-sm').should('have.text', 'Computer thinking...')
-  cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
+  cy.get('.grid-container > :nth-child(2)').should('have.text', ' ')
 
   cy.wait('@putCompMoveAtTwo')
   cy.get('.grid-container > :nth-child(2)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
-  cy.get('.grid-container > :nth-child(5)').should('have.text', '5')
+  cy.get('.grid-container > :nth-child(5)').should('have.text', ' ')
 
   cy.intercept('PUT', '/start-game/grid', {fixture : 'winComputerVsHumanGame/staticHumanResponseTwo'}).as('putHumanMoveAtFive') 
   cy.intercept('PUT', '/start-game/computer_move', {fixture : 'winComputerVsHumanGame/staticComputerResponseThree'}).as('putCompMoveAtThree')
@@ -208,7 +208,7 @@ function playWinningComputerVsHumanGame(){
   cy.wait('@putHumanMoveAtFive')
   cy.get('h2').should('have.text', 'Player X turn') 
   cy.get('.grid-container > :nth-child(5)').should('have.text', 'O')
-  cy.get('.grid-container > :nth-child(3)').should('have.text', '3')
+  cy.get('.grid-container > :nth-child(3)').should('have.text', ' ')
   cy.get('.padding-sm').should('have.text', 'Computer thinking...')
   
   cy.wait('@putCompMoveAtThree')
@@ -217,47 +217,47 @@ function playWinningComputerVsHumanGame(){
 }
 
 function playHumanVsHumanTieGame(){
-  cy.get('.grid-container > :nth-child(1)').should('have.text', '1')
+  cy.get('.grid-container > :nth-child(1)').should('have.text', ' ')
   cy.intercept('PUT', '/start-game/grid', {fixture : 'winHumanVsHumanGame/staticResponseOne'}).as('putMoveAtOne') 
   cy.get('.grid-container > :nth-child(1)').click()
   cy.get('.grid-container > :nth-child(1)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
-  cy.get('.grid-container > :nth-child(3)').should('have.text', '3')
+  cy.get('.grid-container > :nth-child(3)').should('have.text', ' ')
   cy.intercept('PUT', '/start-game/grid', {fixture : 'tieHumanVsHumanGame/staticTieResponseTwo'}).as('putMoveAtTwo') 
   cy.get('.grid-container > :nth-child(3)').click()
   cy.get('.grid-container > :nth-child(3)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
-  cy.get('.grid-container > :nth-child(2)').should('have.text', '2')
+  cy.get('.grid-container > :nth-child(2)').should('have.text', ' ')
   cy.intercept('PUT', '/start-game/grid', {fixture : 'tieHumanVsHumanGame/staticTieResponseThree'}).as('putMoveAtThree') 
   cy.get('.grid-container > :nth-child(2)').click()
   cy.get('.grid-container > :nth-child(2)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
-  cy.get('.grid-container > :nth-child(4)').should('have.text', '4')
+  cy.get('.grid-container > :nth-child(4)').should('have.text', ' ')
   cy.intercept('PUT', '/start-game/grid', {fixture : 'tieHumanVsHumanGame/staticTieResponseFour'}).as('putMoveAtFour') 
   cy.get('.grid-container > :nth-child(4)').click()
   cy.get('.grid-container > :nth-child(4)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
-  cy.get('.grid-container > :nth-child(5)').should('have.text', '5')
+  cy.get('.grid-container > :nth-child(5)').should('have.text', ' ')
   cy.intercept('PUT', '/start-game/grid', {fixture : 'tieHumanVsHumanGame/staticTieResponseFive'}).as('putMoveAtFive') 
   cy.get('.grid-container > :nth-child(5)').click()
   cy.get('.grid-container > :nth-child(5)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
-  cy.get('.grid-container > :nth-child(8)').should('have.text', '8')
+  cy.get('.grid-container > :nth-child(8)').should('have.text', ' ')
   cy.intercept('PUT', '/start-game/grid', {fixture : 'tieHumanVsHumanGame/staticTieResponseSix'}).as('putMoveAtSix') 
   cy.get('.grid-container > :nth-child(8)').click()
   cy.get('.grid-container > :nth-child(8)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
-  cy.get('.grid-container > :nth-child(6)').should('have.text', '6')
+  cy.get('.grid-container > :nth-child(6)').should('have.text', ' ')
   cy.intercept('PUT', '/start-game/grid', {fixture : 'tieHumanVsHumanGame/staticTieResponseSeven'}).as('putMoveAtSeven') 
   cy.get('.grid-container > :nth-child(6)').click()
   cy.get('.grid-container > :nth-child(6)').should('have.text', 'X')
   cy.get('h2').should('have.text', 'Player O turn')
-  cy.get('.grid-container > :nth-child(9)').should('have.text', '9')
+  cy.get('.grid-container > :nth-child(9)').should('have.text', ' ')
   cy.intercept('PUT', '/start-game/grid', {fixture : 'tieHumanVsHumanGame/staticTieResponseEight'}).as('putMoveAtEight') 
   cy.get('.grid-container > :nth-child(9)').click()
   cy.get('.grid-container > :nth-child(9)').should('have.text', 'O')
   cy.get('h2').should('have.text', 'Player X turn')
-  cy.get('.grid-container > :nth-child(7)').should('have.text', '7')
+  cy.get('.grid-container > :nth-child(7)').should('have.text', ' ')
   cy.intercept('PUT', '/start-game/grid', {fixture : 'tieHumanVsHumanGame/staticTieResponseNine'}).as('putMoveAtNine') 
   cy.get('.grid-container > :nth-child(7)').click()
 }

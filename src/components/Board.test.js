@@ -5,26 +5,26 @@ import Board from './Board'
 
 describe('Board', () => {
   it('should render nine buttons', () => {
-    render(<Board gridData={[1, 2, 3, 4, 5, 6, 7, 8, 9]} />)
+    render(<Board gridData={[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']} />)
     const gridButtonElements = screen.getAllByRole('button')
 
     expect(gridButtonElements.length).toBe(9)
   })
 
   it('should render a number,one in each square', async () => {
-    render(<Board gridData={[1, 2, 3, 4, 5, 6, 7, 8, 9]} />)
+    render(<Board gridData={[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']} />)
     const gridButtonElements = screen.getAllByRole('button')
 
-    expect(gridButtonElements[0].textContent).toBe('1')
-    expect(gridButtonElements[1].textContent).toBe('2')
-    expect(gridButtonElements[2].textContent).toBe('3')
+    expect(gridButtonElements[0].textContent).toBe(' ')
+    expect(gridButtonElements[1].textContent).toBe(' ')
+    expect(gridButtonElements[2].textContent).toBe(' ')
   })
 
   it('player X clicks on grid button 1', () => {
     expect.assertions(2)
 
     const addPlayerMarkerStub = jest.fn()
-    const gridDataStub = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const gridDataStub = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     const currentPlayerMarkerStub = 'X'
     render(
       <Board
@@ -34,14 +34,19 @@ describe('Board', () => {
       />,
     )
 
-    const gridButtonElementOne = screen.getByRole('button', { name: /1/i })
+    const gridButtonElementOne = screen.getByTestId('board-btn-element1')
+    const playerMove = [
+      gridButtonElementOne.textContent,
+      gridButtonElementOne.value,
+    ]
+
     userEvent.click(gridButtonElementOne)
 
     expect(addPlayerMarkerStub).toBeCalled()
     expect(addPlayerMarkerStub).toBeCalledWith(
       gridDataStub,
       currentPlayerMarkerStub,
-      gridButtonElementOne.textContent,
+      playerMove,
     )
   })
 
@@ -49,7 +54,7 @@ describe('Board', () => {
     expect.assertions(2)
 
     const addPlayerMarkerStub = jest.fn()
-    const gridDataStub = ['X', 2, 3, 4, 5, 6, 7, 8, 9]
+    const gridDataStub = ['X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     const currentPlayerMarkerStub = 'O'
     render(
       <Board
@@ -59,14 +64,19 @@ describe('Board', () => {
       />,
     )
 
-    const gridButtonElementTwo = screen.getByRole('button', { name: /2/i })
+    const gridButtonElementTwo = screen.getByTestId('board-btn-element2')
+    const playerMove = [
+      gridButtonElementTwo.textContent,
+      gridButtonElementTwo.value,
+    ]
+
     userEvent.click(gridButtonElementTwo)
 
     expect(addPlayerMarkerStub).toBeCalled()
     expect(addPlayerMarkerStub).toBeCalledWith(
       gridDataStub,
       currentPlayerMarkerStub,
-      gridButtonElementTwo.textContent,
+      playerMove,
     )
   })
 })
